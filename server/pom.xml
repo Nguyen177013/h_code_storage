@@ -8,11 +8,11 @@
 		<version>3.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ecchi.storages</groupId>
-	<artifactId>nukecode</artifactId>
+	<groupId>com.example.storage.ecchi</groupId>
+	<artifactId>nunke_code</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>nukecode</name>
-	<description>Storage images and nuke codes</description>
+	<name>nunke_code</name>
+	<description>sauce storage</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -28,6 +28,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-core</artifactId>
 		</dependency>
 
 		<dependency>

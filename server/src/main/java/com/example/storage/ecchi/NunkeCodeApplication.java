@@ -1,13 +1,13 @@
-package com.ecchi.storages.nukecode;
+package com.example.storage.ecchi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NukecodeApplication {
+public class NunkeCodeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NukecodeApplication.class, args);
+		SpringApplication.run(NunkeCodeApplication.class, args);
 	}
 
 }
