@@ -13,4 +13,7 @@ import com.example.storage.ecchi.model.TypeModel;
 public interface TypeRepository extends JpaRepository<Type, Integer> {
 	@Query(value = "SELECT * FROM type", nativeQuery = true)
 	List<Type> getTypes();
+	
+//	@Query(value = "SELECT tp.name as name FROM type tp", nativeQuery = true)
+//	List<TypeModel> getTypeNames();
 }
