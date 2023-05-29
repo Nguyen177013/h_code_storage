@@ -24,7 +24,7 @@ public class TypeController {
 		return "Hello world";
 	}
 	@GetMapping("/list-types")
-	public ResponseEntity<List<TypeModel>> getTyes() {
-		return ResponseEntity.ok(typeService.listTypes());
+	public List<TypeModel> getTyes() {
+		return typeService.listTypes();
 	}
 }
