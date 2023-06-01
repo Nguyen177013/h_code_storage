@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storage.ecchi.model.AuthorModel;
 import com.example.storage.ecchi.service.AuthorService;
-import com.example.storage.ecchi.service.TypeService;
 
 @RestController
 @RequestMapping("api/author")
