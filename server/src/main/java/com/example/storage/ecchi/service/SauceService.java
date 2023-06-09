@@ -7,9 +7,11 @@ import com.example.storage.ecchi.model.SauceModel;
 public interface SauceService {
 	Page<SauceModel> getSauce();
 	
-	public void adddSauce(SauceModel sauceModel);
+	public SauceModel getSauceById(int id);
 	
-	public void editSauce(SauceModel sauceModel);
+	public void addSauce(SauceModel sauceModel);
 	
-	public void deleteSauce(SauceModel sauceModel);
+	public void editSauce(int id, SauceModel sauceModel);
+	
+	public void deleteSauce(int id);
 }
