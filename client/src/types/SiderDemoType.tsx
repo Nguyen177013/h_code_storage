@@ -1,0 +1,3 @@
+type SiderDemoProp = {
+    collapsed: boolean
+}
