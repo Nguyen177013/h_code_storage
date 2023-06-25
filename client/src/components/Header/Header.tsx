@@ -12,7 +12,7 @@ const Header = () => {
                     src="/img/image-8.png"
                     preview={false}
                 />
-                <h1 style={{}}>My Private Storage</h1>
+                <h1>My Private Storage</h1>
             </AntHeader>
         </Layout>
     );

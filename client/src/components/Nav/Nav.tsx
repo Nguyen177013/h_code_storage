@@ -2,29 +2,48 @@ import { Layout, Menu, MenuProps } from "antd"
 import { HomeOutlined, FileImageOutlined, CodeOutlined } from "@ant-design/icons"
 import { useState } from "react";
 const { Sider, Content } = Layout;
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+type OutletProps = {
+    context?: unknown;
+}
 
-const Nav = ({outLet} : React.ReactNode) => {
+type OutLetProps = {
+    OutLet: (props: OutletProps) => React.ReactElement | null;
+}
+
+const Nav = ({OutLet} : OutLetProps) => {
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState<boolean>(false);
-    const toggle = () => {
-        setCollapsed(preCollapsed => !preCollapsed);
-    }
-    console.log(outLet);
+    // const toggle = () => {
+    //     setCollapsed(preCollapsed => !preCollapsed);
+    // }
     const menuItems: MenuProps['items'] = [
         {
             label: "Home",
             icon: <HomeOutlined />,
-            key: "home"
+            key: "home",
+            onClick: () =>{
+                console.log("Home");
+                navigate("/");
+            }
         },
         {
             label: "Images",
             icon: <FileImageOutlined />,
-            key: "images"
+            key: "images",
+            onClick: () =>{
+                console.log("Image");
+                navigate("/image");
+            }
         },
         {
             label: "Nuke Code",
             icon: <CodeOutlined />,
-            key: "code"
+            key: "code",
+            onClick: () =>{
+                console.log("sauce");
+                navigate("/sauce");
+            }
         }
     ];
     return (
@@ -60,6 +79,7 @@ const Nav = ({outLet} : React.ReactNode) => {
             />
           </Header> */}
                 <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                    <OutLet/>
                 </Content>
             </Layout>
         </Layout>

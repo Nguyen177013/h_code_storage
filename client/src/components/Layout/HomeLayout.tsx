@@ -5,8 +5,7 @@ const HomeLayout = () => {
     return (
         <>
             <Header />
-            <Nav />
-            <Outlet/>
+            <Nav OutLet = {Outlet}/>
         </>
     );
 }
