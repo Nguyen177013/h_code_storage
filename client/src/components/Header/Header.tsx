@@ -1,5 +1,5 @@
-const { Header : AntHeader} = Layout;
-import { Image, Layout,} from "antd"
+const { Header: AntHeader } = Layout;
+import { Image, Layout, } from "antd"
 
 
 const Header = () => {
@@ -12,7 +12,7 @@ const Header = () => {
                     src="/img/image-8.png"
                     preview={false}
                 />
-                <h1>My Private Storage</h1>
+                <h1 style={{ flex: "1", textAlign: "center" }}>My Private Storage</h1>
             </AntHeader>
         </Layout>
     );

@@ -14,9 +14,9 @@ type OutLetProps = {
 const Nav = ({OutLet} : OutLetProps) => {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState<boolean>(false);
-    // const toggle = () => {
-    //     setCollapsed(preCollapsed => !preCollapsed);
-    // }
+    const toggle = () => {
+        setCollapsed(preCollapsed => !preCollapsed);
+    }
     const menuItems: MenuProps['items'] = [
         {
             label: "Home",
@@ -49,9 +49,9 @@ const Nav = ({OutLet} : OutLetProps) => {
     return (
         <Layout>
             <Sider
-                trigger={null}
                 collapsed={collapsed}
                 collapsible
+                onCollapse={toggle}
                 style={{
                     padding: "10px 0",
                     overflow: "auto",
