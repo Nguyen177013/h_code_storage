@@ -22,7 +22,7 @@ public class TypeServiceImp implements TypeService {
 	public List<TypeModel> listTypes() {
 		List<Type> listType = (repository.getTypes());
 		// TODO Auto-generated method stub
-		return transformer.typeEntityToModel(listType);
+		return transformer.applyList(listType);
 	}
 
 }
