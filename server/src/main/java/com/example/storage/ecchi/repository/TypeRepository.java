@@ -7,13 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.storage.ecchi.entity.Type;
-import com.example.storage.ecchi.model.TypeModel;
 
 @Repository
 public interface TypeRepository extends JpaRepository<Type, Integer> {
 	@Query(value = "SELECT * FROM type", nativeQuery = true)
 	List<Type> getTypes();
-	
-//	@Query(value = "SELECT tp.name as name FROM type tp", nativeQuery = true)
-//	List<TypeModel> getTypeNames();
+
 }

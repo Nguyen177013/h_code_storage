@@ -27,11 +27,17 @@ public class Sauce {
 	private Integer id;
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	private String sauceUrl;
+	
+	private String sauceImage;
+	
+	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private Type type;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "author_id")
 	private Author author;
+	
+	
 }
