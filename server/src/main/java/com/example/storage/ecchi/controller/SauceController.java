@@ -20,7 +20,7 @@ public class SauceController {
 	@Autowired
 	SauceService sauceService;
 
-	@GetMapping("/sauces")
+	@GetMapping("/get-all")
 	public Page<SauceModel> getSauces() {
 		return sauceService.getSauce();
 	}

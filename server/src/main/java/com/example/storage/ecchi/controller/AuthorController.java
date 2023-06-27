@@ -22,7 +22,7 @@ public class AuthorController {
 	public ResponseEntity<String> getGreeting() {
 		return ResponseEntity.ok("hello author");
 	}
-	@GetMapping("list-author")
+	@GetMapping("get-all")
 	public ResponseEntity<List<AuthorModel>> getAuthors() {
 		return ResponseEntity.ok(authorService.listAuthors());
 	}

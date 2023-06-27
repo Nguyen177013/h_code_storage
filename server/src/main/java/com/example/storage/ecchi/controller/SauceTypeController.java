@@ -7,23 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.storage.ecchi.model.TypeModel;
-import com.example.storage.ecchi.service.TypeService;
+import com.example.storage.ecchi.model.SauceTypeModel;
+import com.example.storage.ecchi.service.SauceTypeService;
 
 @RestController
-@RequestMapping("/api/type")
-public class TypeController {
-	
+@RequestMapping("/api/sauce-type")
+public class SauceTypeController {
+
 	@Autowired
-	TypeService typeService;
+	SauceTypeService sauceTypeService;
 	
-	@GetMapping("")
-	public String gretting() {
-		System.out.println("hello");
-		return "Hello world";
-	}
 	@GetMapping("/get-all")
-	public List<TypeModel> getTyes() {
-		return typeService.listTypes();
+	List<SauceTypeModel> getAllSauceType(){
+		return sauceTypeService.getAllSauceType();
 	}
 }
