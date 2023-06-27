@@ -1,5 +1,7 @@
 package com.example.storage.ecchi.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,5 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TypeModel {
+	private Integer id;
 	private String name;
+	private List<SauceTypeModel> sauceType;
 }

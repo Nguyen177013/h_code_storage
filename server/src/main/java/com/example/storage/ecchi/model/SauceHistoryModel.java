@@ -1,6 +1,6 @@
 package com.example.storage.ecchi.model;
 
-import java.util.List;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +13,9 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorModel {
-	private String name;
+public class SauceHistoryModel {
 	private Integer id;
-	private List<SauceModel> sauces;
+	private Date dateUpload;
+	private Integer sauceId;
+	private String sauceName;
 }

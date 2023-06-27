@@ -1,7 +1,6 @@
 package com.example.storage.ecchi.model;
 
-import com.example.storage.ecchi.entity.Author;
-import com.example.storage.ecchi.entity.Type;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SauceModel {
+	private Integer id;
 	private String name;
-	private Type type;
-	private Author author;
+	private Integer authorId;
+	private String authorName;
+	private String sauceUrl;
+	private String sauceImage;
+	private List<SauceTypeModel> sauceType;
 }
