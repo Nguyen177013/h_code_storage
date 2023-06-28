@@ -22,7 +22,6 @@ public class SauceController {
 
 	@GetMapping("/get-all")
 	public Page<SauceModel> getSauces() {
-//		return sauceService.getSauce();
 		return null;
 	}
 	
