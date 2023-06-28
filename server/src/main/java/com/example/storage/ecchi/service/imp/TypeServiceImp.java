@@ -20,8 +20,7 @@ public class TypeServiceImp implements TypeService {
 	TypeTransformer transformer;
 	@Override
 	public List<TypeModel> listTypes() {
-		List<Type> listType = (repository.getTypes());
-		// TODO Auto-generated method stub
+		List<Type> listType = repository.findAll();
 		return transformer.applyList(listType);
 	}
 

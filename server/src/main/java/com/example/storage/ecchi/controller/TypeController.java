@@ -19,7 +19,6 @@ public class TypeController {
 	
 	@GetMapping("")
 	public String gretting() {
-		System.out.println("hello");
 		return "Hello world";
 	}
 	@GetMapping("/get-all")

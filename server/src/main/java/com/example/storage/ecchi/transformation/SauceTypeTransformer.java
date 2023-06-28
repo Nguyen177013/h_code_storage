@@ -25,6 +25,6 @@ public class SauceTypeTransformer {
 		model.setId(entity.getId());
 		model.setSauceId(entity.getSauce().getId());
 		model.setTypeId(entity.getType().getId());
-		return model;
+		return null;
 	}
 }

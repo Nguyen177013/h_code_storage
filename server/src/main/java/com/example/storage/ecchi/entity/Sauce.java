@@ -2,6 +2,7 @@ package com.example.storage.ecchi.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,8 +29,10 @@ public class Sauce {
 	private Integer id;
 	private String name;
 	
+	@Column(name = "sauce_url")
 	private String sauceUrl;
-	
+
+	@Column(name = "sauce_image")
 	private String sauceImage;
 	
 	@ManyToOne

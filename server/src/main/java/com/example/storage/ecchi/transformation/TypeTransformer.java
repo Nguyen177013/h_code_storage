@@ -27,7 +27,7 @@ public class TypeTransformer {
 
 	public TypeModel apply(Type entity) {
 		TypeModel model = new TypeModel();
-		List<SauceTypeModel> sauceTypes = entity.getSauceType().stream().map(sauceTypeTransformer::apply).toList();
+		List<SauceTypeModel> sauceTypes =  entity.getSauceType().stream().map(sauceTypeTransformer::apply).toList();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
 		model.setSauceType(sauceTypes);

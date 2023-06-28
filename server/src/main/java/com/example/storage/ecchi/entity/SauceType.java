@@ -26,7 +26,7 @@ public class SauceType {
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private Type type;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "sauce_id")
 	private Sauce sauce;
