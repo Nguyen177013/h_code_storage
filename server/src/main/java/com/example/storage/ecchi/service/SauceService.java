@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import com.example.storage.ecchi.model.SauceModel;
 
 public interface SauceService {
-	Page<SauceModel> getSauce();
+	Page<SauceModel> getSauce(Integer no, Integer limit, String sort);
 	
 	public SauceModel getSauceById(int id);
 	
