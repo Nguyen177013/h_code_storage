@@ -3,11 +3,13 @@ package com.example.storage.ecchi.transformation;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import com.example.storage.ecchi.entity.SauceHistory;
 import com.example.storage.ecchi.model.SauceHistoryModel;
 
+@Component
 public class SauceHistoryTransformer {
 	
 	public List<SauceHistoryModel> applyList(List<SauceHistory> entities){

@@ -11,7 +11,7 @@ import com.example.storage.ecchi.model.SauceHistoryModel;
 import com.example.storage.ecchi.service.SauceHistoryService;
 
 @RestController
-@RequestMapping("/api/type")
+@RequestMapping("/api/sauce-history")
 public class SauceHistoryController {
 	
 	@Autowired
