@@ -21,4 +21,9 @@ public class SauceHistoryController {
 	List<SauceHistoryModel> getAllSauceHistory(){
 		return sauceHistoryService.getAllSauceHistory();
 	}
+	
+	@GetMapping("/get-history")
+	List<Object> getSauceHistory(){
+		return sauceHistoryService.getSauceHistory();
+	}
 }

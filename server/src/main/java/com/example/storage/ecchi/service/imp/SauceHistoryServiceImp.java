@@ -24,4 +24,8 @@ public class SauceHistoryServiceImp implements SauceHistoryService{
 		return transformer.applyList(repository.findAll());
 	}
 
+	@Override
+	public List<Object> getSauceHistory() {
+		return repository.countSauceHistory();
+	}
 }

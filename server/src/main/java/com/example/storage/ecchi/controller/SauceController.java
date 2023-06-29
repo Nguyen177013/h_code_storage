@@ -1,13 +1,15 @@
 package com.example.storage.ecchi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storage.ecchi.model.SauceModel;
@@ -21,8 +23,8 @@ public class SauceController {
 	SauceService sauceService;
 
 	@GetMapping("/get-all")
-	public Page<SauceModel> getSauces() {
-		return null;
+	public List<SauceModel> getSauces(@RequestParam(defaultValue = "0", value = "page") Integer page) {
+		return sauceService.getSauce(page);
 	}
 	
 	@GetMapping("/sauces/{id}")

@@ -1,7 +1,8 @@
 package com.example.storage.ecchi.service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,9 @@ public class SauceServiceImp implements SauceService {
 	SauceTransformer transformer;
 
 	@Override
-	public Page<SauceModel> getSauce(Integer no, Integer limit, String sortBy) {
-		Sort sort = Sort.by(sortBy);
-		return sauceRepository.getAllSauce(PageRequest.of(no, limit, sort)).map(ele -> transformer.apply(ele));
+	public List<SauceModel> getSauce(Integer no) {
+		Sort sort = Sort.by("id");
+		return sauceRepository.getAllSauce(PageRequest.of(no, 2, sort)).map(ele -> transformer.apply(ele)).getContent();
 	}
 
 	@Override
