@@ -15,9 +15,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SauceTypeServiceImp implements SauceTypeService{
 	
-	SauceTypeRepository repository;
+	private final SauceTypeRepository repository;
 	
-	SauceTypeTransformer transformer;
+	private final SauceTypeTransformer transformer;
 	
 	@Override
 	public List<SauceTypeModel> getAllSauceType() {

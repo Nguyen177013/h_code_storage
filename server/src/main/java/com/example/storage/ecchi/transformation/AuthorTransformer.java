@@ -26,10 +26,10 @@ public class AuthorTransformer {
 	}
 	public AuthorModel apply(Author entity) {
 		AuthorModel model = new AuthorModel();
-		List<SauceModel> sauce = entity.getSauces().stream().map(sauceTransformer::apply).toList();
+		List<SauceModel> sauces = entity.getSauces().stream().map(sauceTransformer::apply).toList();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
-		model.setSauces(sauce);
+		model.setSauces(sauces);
 		return model;
 	}
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import com.example.storage.ecchi.entity.Sauce;
-import com.example.storage.ecchi.model.SauceHistoryModel;
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.model.SauceTypeModel;
 
@@ -20,7 +19,6 @@ public class SauceTransformer {
 
 	private final SauceTypeTransformer sauceTypeTransformer;
 
-	private final SauceHistoryTransformer sauceHistoryTransformer;
 
 	public List<SauceModel> applyList(List<Sauce> entities) {
 		if (ObjectUtils.isEmpty(entities)) {
@@ -32,8 +30,6 @@ public class SauceTransformer {
 	public SauceModel apply(Sauce entity) {
 		SauceModel model = new SauceModel();
 		List<SauceTypeModel> sauceTypes = entity.getSauceType().stream().map(sauceTypeTransformer::apply).toList();
-		List<SauceHistoryModel> sauceHistory = entity.getSauceHistory().stream().map(sauceHistoryTransformer::apply)
-				.toList();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
 		model.setAuthorId(entity.getAuthor().getId());
@@ -41,7 +37,6 @@ public class SauceTransformer {
 		model.setSauceImage(entity.getSauceImage());
 		model.setSauceUrl(entity.getSauceUrl());
 		model.setSauceType(sauceTypes);
-		model.setSauceHistory(sauceHistory);
 		return model;
 	}
 }

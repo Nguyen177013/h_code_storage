@@ -17,5 +17,4 @@ public class SauceModel {
 	private String sauceUrl;
 	private String sauceImage;
 	private List<SauceTypeModel> sauceType;
-	private List<SauceHistoryModel> sauceHistory;
 }

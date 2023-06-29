@@ -15,9 +15,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SauceHistoryServiceImp implements SauceHistoryService{
 
-	SauceHistoryRepository repository;
+	private final SauceHistoryRepository repository;
 	
-	SauceHistoryTransformer transformer;
+	private final SauceHistoryTransformer transformer;
 	
 	@Override
 	public List<SauceHistoryModel> getAllSauceHistory() {
