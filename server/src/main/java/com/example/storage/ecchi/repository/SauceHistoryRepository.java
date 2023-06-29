@@ -15,7 +15,8 @@ public interface SauceHistoryRepository extends JpaRepository<SauceHistory, Inte
 	@Query(nativeQuery = true, value = "SELECT COUNT(h.id) AS total, " + "CASE :dateUpload "
 			+ "WHEN 'year' THEN extract('year' from h.date_upload) "
 			+ "WHEN 'month' THEN extract('month' from h.date_upload) " + "END AS dateFormat " + "FROM history h "
-			+ "WHERE extract(year from h.date_upload) = CAST(:year AS INTEGER) " + "GROUP BY dateFormat")
+			+ "WHERE (:year IS NULL OR :year = '' OR extract(year from h.date_upload) = CAST(:year AS INTEGER)) "
+			+ "GROUP BY dateFormat")
 	List<TotalSauceHistory> countSauceHistory(@Param("year") String year, @Param("dateUpload") String dateUpload);
 
 }
