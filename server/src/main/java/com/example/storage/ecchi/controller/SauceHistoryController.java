@@ -25,8 +25,8 @@ public class SauceHistoryController {
 	}
 
 	@GetMapping("/get-history")
-	List<TotalSauceHistory> getSauceHistory(@RequestParam(value = "year") String year,
-			@RequestParam(defaultValue = "year", value = "extract") String extract) {
-		return sauceHistoryService.getSauceHistory(year, extract);
+	List<TotalSauceHistory> getSauceHistory(@RequestParam(defaultValue = "", value = "year") String year,
+			@RequestParam(defaultValue = "year", value = "dateUpload") String dateUpload) {
+		return sauceHistoryService.getSauceHistory(year, dateUpload);
 	}
 }

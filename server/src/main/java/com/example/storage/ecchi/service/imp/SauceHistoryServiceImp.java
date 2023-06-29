@@ -26,7 +26,7 @@ public class SauceHistoryServiceImp implements SauceHistoryService{
 	}
 
 	@Override
-	public List<TotalSauceHistory> getSauceHistory(String year, String extractDate) {
-		return repository.countSauceHistory(year, extractDate);
+	public List<TotalSauceHistory> getSauceHistory(String year, String dateUpload) {
+		return repository.countSauceHistory(year, dateUpload);
 	}
 }
