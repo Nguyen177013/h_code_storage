@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.storage.ecchi.model.SauceHistoryModel;
+import com.example.storage.ecchi.model.TotalSauceHistory;
 import com.example.storage.ecchi.repository.SauceHistoryRepository;
 import com.example.storage.ecchi.service.SauceHistoryService;
 import com.example.storage.ecchi.transformation.SauceHistoryTransformer;
@@ -25,7 +26,7 @@ public class SauceHistoryServiceImp implements SauceHistoryService{
 	}
 
 	@Override
-	public List<Object> getSauceHistory() {
-		return repository.countSauceHistory();
+	public List<TotalSauceHistory> getSauceHistory(String year, String extractDate) {
+		return repository.countSauceHistory(year, extractDate);
 	}
 }
