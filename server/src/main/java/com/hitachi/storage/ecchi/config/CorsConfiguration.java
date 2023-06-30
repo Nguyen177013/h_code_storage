@@ -1,4 +1,4 @@
-package com.hitachi.coe.fullstack.config;
+package com.hitachi.storage.ecchi.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
