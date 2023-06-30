@@ -1,11 +1,20 @@
+import { Breadcrumb, Layout } from "antd";
 import Header from "../Header/Header";
 import Nav from "../Nav/Nav";
-import {Outlet} from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import { Content } from "antd/es/layout/layout";
 const HomeLayout = () => {
     return (
         <>
             <Header />
-            <Nav OutLet = {Outlet}/>
+            <Layout>
+                <Nav />
+                <Layout>
+                    <Content style={{ padding: 24, background: '#fff', minHeight: 280 }}>
+                        <Outlet></Outlet>
+                    </Content>
+                </Layout>
+            </Layout>
         </>
     );
 }

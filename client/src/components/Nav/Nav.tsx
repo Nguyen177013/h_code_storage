@@ -11,7 +11,7 @@ type OutLetProps = {
     OutLet: (props: OutletProps) => React.ReactElement | null;
 }
 
-const Nav = ({OutLet} : OutLetProps) => {
+const Nav = () => {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const toggle = () => {
@@ -23,7 +23,6 @@ const Nav = ({OutLet} : OutLetProps) => {
             icon: <HomeOutlined />,
             key: "home",
             onClick: () =>{
-                console.log("Home");
                 navigate("/");
             }
         },
@@ -32,7 +31,6 @@ const Nav = ({OutLet} : OutLetProps) => {
             icon: <FileImageOutlined />,
             key: "images",
             onClick: () =>{
-                console.log("Image");
                 navigate("/image");
             }
         },
@@ -41,13 +39,19 @@ const Nav = ({OutLet} : OutLetProps) => {
             icon: <CodeOutlined />,
             key: "code",
             onClick: () =>{
-                console.log("sauce");
                 navigate("/sauce");
+            }
+        },
+        {
+            label: "Gallery",
+            icon: <FileImageOutlined />,
+            key: "gallerry",
+            onClick: () =>{
+                navigate("/image");
             }
         }
     ];
     return (
-        <Layout>
             <Sider
                 collapsed={collapsed}
                 collapsible
@@ -70,19 +74,6 @@ const Nav = ({OutLet} : OutLetProps) => {
                 >
                 </Menu>
             </Sider>
-            <Layout>
-                {/* <Header style={{ background: '#fff', padding: 0 }}>
-            <HomeOutlined
-              className="trigger"
-              type={collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={toggle}
-            />
-          </Header> */}
-                <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
-                    <OutLet/>
-                </Content>
-            </Layout>
-        </Layout>
     );
 }
 
