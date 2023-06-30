@@ -3,6 +3,7 @@ package com.example.storage.ecchi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import com.example.storage.ecchi.model.TotalSauceHistory;
 import com.example.storage.ecchi.service.SauceHistoryService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173/")
 @RequestMapping("/api/sauce-history")
 public class SauceHistoryController {
 
