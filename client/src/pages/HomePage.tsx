@@ -14,13 +14,18 @@ const HomePage = () => {
         // .then(response =>{
         //     console.log(response);
         // })
-        fetch("http://localhost:8080/hentaibu/api/sauce-history/get-history?year=2023&dateUpload=month",{
-            method:"GET",
-            headers:{
-                "content-type": "application/json",
-                "Authorization":"Basic aGVudGFpYnU6NTA3YzZlMzRiNzdiNTkxNmMzYjc5MWUyZmY2MjcxMTQ="
-            }
-    })
+        fetch("http://localhost:8080/hentaibu/api/author");
+    //     ,{
+    //         method:"GET",
+    //         headers:{
+    //             // "content-type": "application/json",
+    //             "Authorization":"Basic aGVudGFpYnU6NTA3YzZlMzRiNzdiNTkxNmMzYjc5MWUyZmY2MjcxMTQ="
+    //         }
+    // })
+    // .then(req => req.json())
+    // .then(res =>{
+    //     console.log(res);
+    // })
     },[])
     return (
         <div>

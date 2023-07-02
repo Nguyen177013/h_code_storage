@@ -9,5 +9,4 @@ public class NunkeCodeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NunkeCodeApplication.class, args);
 	}
-
 }
