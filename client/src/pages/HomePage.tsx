@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import CountUp from 'react-countup';
 
 const HomePage = () => {
+    let header = new Headers();
+    header.append('Authorization', 'Basic '+ btoa("hentaibu:507c6e34b77b5916c3b791e2ff627114"))
+    console.log(header);
+    
     useEffect(()=>{
         // axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-history?year=2023&dateUpload=month",{
         //     headers:{
@@ -14,14 +18,11 @@ const HomePage = () => {
         // .then(response =>{
         //     console.log(response);
         // })
-        fetch("http://localhost:8080/hentaibu/api/author");
-    //     ,{
-    //         method:"GET",
-    //         headers:{
-    //             // "content-type": "application/json",
-    //             "Authorization":"Basic aGVudGFpYnU6NTA3YzZlMzRiNzdiNTkxNmMzYjc5MWUyZmY2MjcxMTQ="
-    //         }
-    // })
+        fetch("http://localhost:8080/hentaibu/api/author"
+        ,{
+            method:"GET",
+            headers:header
+    })
     // .then(req => req.json())
     // .then(res =>{
     //     console.log(res);
