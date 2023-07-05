@@ -32,6 +32,7 @@ const MainDashBoard = ({ dateFormat, total, filterBy }: SauceHistoryProp) => {
                 text: `Contribution Line Chart By ${filterBy}`,
             },
         },
+        maintainAspectRatio: false
     };
     const labels = dateFormat;
     const dataset: datasetType = {
@@ -47,8 +48,8 @@ const MainDashBoard = ({ dateFormat, total, filterBy }: SauceHistoryProp) => {
         ]
     }
     return (
-        <div>
-            <Line options={options} data={data}/>
+        <div style={{width:"50%"}}>
+            <Line options={options} data={data} width={"50%"}/>
         </div>
     );
 }
