@@ -13,5 +13,4 @@ public interface SauceHistoryService {
 	
 	List<DateModel> getYear();
 	
-	List<DateModel> getMonth(String year);
 }

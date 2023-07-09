@@ -4,3 +4,14 @@ type datasetType = {
     borderColor: string,
     backgroundColor: string,
 }
+
+type datetimeSelectionType = {
+    value: string,
+    label: string
+};
+
+type dateOptionType = {
+    year:string
+    option:string
+}
+

@@ -6,8 +6,27 @@ import MainDashBoard from "../features/dashboard/MainDashBoard";
 
 const HomePage = () => {
     const [sauceHistory, setSauceHistory] = useState<SauceHistory[]>([]);
+    const [years, setYears] = useState<datetimeSelectionType[]>([]);
+    const [date, setDate] = useState<dateOptionType>({option:"", year:""});
+    useEffect(() =>{
+        axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-year", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${window.btoa("hentaibu:507c6e34b77b5916c3b791e2ff627114")}`
+            }
+        })
+        .then((res) =>{
+            const date : [{year:string}]= res.data;
+            const years = date.map(year =>({
+                value:year.year,
+                label: year.year
+            }));
+            setYears(years);
+        })
+    }, []);
+
     useEffect(() => {
-        axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-history?year=2023&dateUpload=day", {
+        axios.get(`http://localhost:8080/hentaibu/api/sauce-history/get-history?year=${date.year}&dateUpload=${date.option}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Basic ${window.btoa("hentaibu:507c6e34b77b5916c3b791e2ff627114")}`
@@ -20,18 +39,22 @@ const HomePage = () => {
     }, [])
     const total: number[] = useMemo(() => {
         return sauceHistory.map(data => data.total);
-    }, [sauceHistory]);
+    }, [sauceHistory, date]);
     const dateFormat: string[] = useMemo(() => {
         return sauceHistory.map(data => {
             const number = data.dateFormat;
             const monthName = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(0, number - 1));
             return monthName;
         });
-    }, [sauceHistory]);
+    }, [sauceHistory, date]);
     const handleChange = (value : string) =>{
-        console.log(value);
-        
+        setDate(preDate => ({
+            ...preDate,
+            year: value
+        }))
     }
+    console.log(dateFormat);
+    
     return (
         <div>
             <Row gutter={[24, 0]}>
@@ -49,11 +72,7 @@ const HomePage = () => {
                             defaultValue={new Date().getFullYear().toString()}
                             style={{ width: 120 }}
                             onChange={handleChange}
-                            options={[
-                                { value: '2023', label: '2023' },
-                                { value: '2022', label: '2022' },
-                                { value: '2021', label: '2021' },
-                            ]}
+                            options={years}
                         />
                         <Select
                             defaultValue="lucy"

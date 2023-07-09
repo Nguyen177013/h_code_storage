@@ -36,9 +36,4 @@ public class SauceHistoryController {
 	List<DateModel> getYear() {
 		return sauceHistoryService.getYear();
 	}
-
-	@GetMapping("get-month/{year}")
-	List<DateModel> getMonth(@PathVariable("year") String year) {
-		return sauceHistoryService.getMonth(year);
-	}
 }

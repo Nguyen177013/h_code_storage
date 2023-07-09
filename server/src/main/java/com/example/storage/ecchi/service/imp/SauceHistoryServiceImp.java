@@ -35,9 +35,4 @@ public class SauceHistoryServiceImp implements SauceHistoryService{
 	public List<DateModel> getYear() {
 		return repository.getYear();
 	}
-
-	@Override
-	public List<DateModel> getMonth(String year) {
-		return repository.getMonth(year);
-	}
 }
