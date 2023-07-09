@@ -7,22 +7,22 @@ import MainDashBoard from "../features/dashboard/MainDashBoard";
 const HomePage = () => {
     const [sauceHistory, setSauceHistory] = useState<SauceHistory[]>([]);
     const [years, setYears] = useState<datetimeSelectionType[]>([]);
-    const [date, setDate] = useState<dateOptionType>({option:"", year:""});
-    useEffect(() =>{
+    const [date, setDate] = useState<dateOptionType>({ option: "", year: "" });
+    useEffect(() => {
         axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-year", {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Basic ${window.btoa("hentaibu:507c6e34b77b5916c3b791e2ff627114")}`
             }
         })
-        .then((res) =>{
-            const date : [{year:string}]= res.data;
-            const years = date.map(year =>({
-                value:year.year,
-                label: year.year
-            }));
-            setYears(years);
-        })
+            .then((res) => {
+                const date: [{ year: string }] = res.data;
+                const years = date.map(year => ({
+                    value: year.year,
+                    label: year.year
+                }));
+                setYears(years);
+            })
     }, []);
 
     useEffect(() => {
@@ -36,25 +36,32 @@ const HomePage = () => {
                 const { data } = response;
                 setSauceHistory(data);
             })
-    }, [])
+    }, [date])
     const total: number[] = useMemo(() => {
         return sauceHistory.map(data => data.total);
-    }, [sauceHistory, date]);
+    }, [sauceHistory]);
     const dateFormat: string[] = useMemo(() => {
         return sauceHistory.map(data => {
             const number = data.dateFormat;
+            if(number.toString().length === 4){
+                return number.toString();
+            }
             const monthName = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(0, number - 1));
             return monthName;
         });
-    }, [sauceHistory, date]);
-    const handleChange = (value : string) =>{
+    }, [sauceHistory]);
+    const handleChangeYear = (value: string) => {
         setDate(preDate => ({
             ...preDate,
             year: value
         }))
     }
-    console.log(dateFormat);
-    
+    const handleChangeOptions = (value: string) => {
+        setDate(preDate => ({
+            ...preDate,
+            option: value
+        }))
+    }
     return (
         <div>
             <Row gutter={[24, 0]}>
@@ -69,16 +76,23 @@ const HomePage = () => {
                     <Space wrap>
                         <h4>Select Date Time For DashBoard</h4>
                         <Select
-                            defaultValue={new Date().getFullYear().toString()}
                             style={{ width: 120 }}
-                            onChange={handleChange}
+                            onChange={handleChangeYear}
                             options={years}
                         />
                         <Select
-                            defaultValue="lucy"
+                            defaultValue="year"
                             style={{ width: 120 }}
-                            disabled
-                            options={[{ value: 'lucy', label: 'Lucy' }]}
+                            disabled={date.year === ""}
+                            onChange={handleChangeOptions}
+                            options={[
+                                {
+                                    value: 'month', label: 'Month'
+                                },
+                                {
+                                    value: 'year', label: 'Year'
+                                }
+                            ]}
                         />
 
                     </Space>
