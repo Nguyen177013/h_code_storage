@@ -11,7 +11,6 @@ import {
 import { Line } from 'react-chartjs-2';
 import { random_rgba } from '../../utils/StringRgpUtil';
 import "../../assets/chart.css"
-import { Select, Space } from 'antd';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -49,33 +48,9 @@ const MainDashBoard = ({ dateFormat, total, filterBy }: SauceHistoryProp) => {
             dataset
         ]
     }
-    const handleChange = (value: string) => {
-        console.log(value);
-
-    }
     return (
         <div>
-            <Space wrap>
-                <h4>Select Date Time For DashBoard</h4>
-                <Select
-                    defaultValue={new Date().getFullYear().toString()}
-                    style={{ width: 120 }}
-                    onChange={handleChange}
-                    options={[
-                        { value: '2023', label: '2023' },
-                        { value: '2022', label: '2022' },
-                        { value: '2021', label: '2021' },
-                    ]}
-                />
-                <Select
-                    defaultValue="lucy"
-                    style={{ width: 120 }}
-                    disabled
-                    options={[{ value: 'lucy', label: 'Lucy' }]}
-                />
-
-            </Space>
-            <Line options={options} data={data} width={"100%"} />
+            <Line options={options} data={data} width={"100%"} style={{marginTop:"38px"}} />
         </div>
     );
 }
