@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.storage.ecchi.entity.SauceHistory;
 import com.example.storage.ecchi.model.DateModel;
 import com.example.storage.ecchi.model.TotalSauceHistory;
+import com.example.storage.ecchi.model.TotalUpload;
 
 @Repository
 public interface SauceHistoryRepository extends JpaRepository<SauceHistory, Integer> {
@@ -25,5 +26,7 @@ public interface SauceHistoryRepository extends JpaRepository<SauceHistory, Inte
 			+ "FROM history h "
 			+ "GROUP BY extract('year' from h.date_upload)")
 	List<DateModel> getYear();
-	
+
+	@Query(nativeQuery = true, value = "SELECT COUNT(h.id) AS totalUpload FROM history h WHERE h.date_upload >= CURRENT_DATE")
+	TotalUpload getTotalUpload();
 }

@@ -2,7 +2,6 @@ import { Modal } from "antd";
 import { useState } from "react";
 
 const ModalPage = () => {
-    console.log("hi");
     const [toggleOpen, setOpen] = useState<boolean>(false);   
     return ( 
         <>

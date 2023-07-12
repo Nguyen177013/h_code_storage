@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.storage.ecchi.model.DateModel;
 import com.example.storage.ecchi.model.SauceHistoryModel;
 import com.example.storage.ecchi.model.TotalSauceHistory;
+import com.example.storage.ecchi.model.TotalUpload;
 import com.example.storage.ecchi.service.SauceHistoryService;
 
 @RestController
@@ -35,5 +36,10 @@ public class SauceHistoryController {
 	@GetMapping("/get-year")
 	List<DateModel> getYear() {
 		return sauceHistoryService.getYear();
+	}
+	
+	@GetMapping("/get-total-upload")
+	TotalUpload getTotalUpload() {
+		return sauceHistoryService.getTotalUpload();
 	}
 }

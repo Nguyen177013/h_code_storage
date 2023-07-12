@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.storage.ecchi.model.DateModel;
 import com.example.storage.ecchi.model.SauceHistoryModel;
 import com.example.storage.ecchi.model.TotalSauceHistory;
+import com.example.storage.ecchi.model.TotalUpload;
 
 public interface SauceHistoryService {
 	List<SauceHistoryModel> getAllSauceHistory();
@@ -13,4 +14,5 @@ public interface SauceHistoryService {
 	
 	List<DateModel> getYear();
 	
+	TotalUpload getTotalUpload();
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.storage.ecchi.model.DateModel;
 import com.example.storage.ecchi.model.SauceHistoryModel;
 import com.example.storage.ecchi.model.TotalSauceHistory;
+import com.example.storage.ecchi.model.TotalUpload;
 import com.example.storage.ecchi.repository.SauceHistoryRepository;
 import com.example.storage.ecchi.service.SauceHistoryService;
 import com.example.storage.ecchi.transformation.SauceHistoryTransformer;
@@ -34,5 +35,10 @@ public class SauceHistoryServiceImp implements SauceHistoryService{
 	@Override
 	public List<DateModel> getYear() {
 		return repository.getYear();
+	}
+
+	@Override
+	public TotalUpload getTotalUpload() {
+		return repository.getTotalUpload();
 	}
 }
