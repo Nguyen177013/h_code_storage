@@ -7,6 +7,7 @@ import MainDashBoard from "../features/dashboard/MainDashBoard";
 const HomePage = () => {
     const [sauceHistory, setSauceHistory] = useState<SauceHistory[]>([]);
     const [years, setYears] = useState<datetimeSelectionType[]>([]);
+    const [totalUpload, setTotalUpload] = useState<number>(0);
     const [date, setDate] = useState<dateOptionType>({ option: "", year: "" });
     useEffect(() => {
         axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-year", {
@@ -23,6 +24,16 @@ const HomePage = () => {
                 }));
                 setYears(years);
             })
+        axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-total-upload", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${window.btoa("hentaibu:507c6e34b77b5916c3b791e2ff627114")}`
+            }
+        })
+        .then((res)=>{
+            const data : TotalUpload = res.data;
+            setTotalUpload(data.totalUpload);
+        })
     }, []);
 
     useEffect(() => {
@@ -68,7 +79,7 @@ const HomePage = () => {
                 <Col span={6}>
                     <div>
                         <div>
-                            <h4> Sauces have been add from today:  <CountUp end={100} duration={3}></CountUp> </h4>
+                            <h4> Sauces have been add from today:  <CountUp end={totalUpload} duration={3}></CountUp> </h4>
                         </div>
                     </div>
                 </Col>

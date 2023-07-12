@@ -8,3 +8,7 @@ type SauceHistoryProp = {
     total: number[],
     filterBy:string
 }
+
+type TotalUpload ={
+    "totalUpload": number
+}
