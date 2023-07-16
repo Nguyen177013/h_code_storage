@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.service.SauceService;
@@ -46,4 +47,11 @@ public class SauceController {
 	public void deleteSaucesById(@PathVariable("id") int id) {
 		sauceService.deleteSauce(id);
 	}
+	
+	@GetMapping("/upload")
+    public String handleFileUpload() {
+//		System.out.println(file);
+        return "File uploaded successfully";
+    }
+
 }

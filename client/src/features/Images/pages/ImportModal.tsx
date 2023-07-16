@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
 import DisplayImages from "./DisplayImages";
+import axios from "axios";
 
 const ImportModal = () => {
     const [imageInput, setImageInput] = useState<imageInput>({
@@ -37,6 +38,28 @@ const ImportModal = () => {
         blob: [...prevInput.blob, blob]
       }));
     };
+
+    const handleImport = () =>{
+        const formData = new FormData();
+        const {blob, url} = imageInput
+        if(blob.length === 0 && url === ""){
+            return;
+        }
+        blob.forEach((file) => {
+            formData.append(`file_${file.name}`, file);
+        })
+        axios.post("http://localhost:8080/hentaibu/api/sauce/upload", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${window.btoa("hentaibu:507c6e34b77b5916c3b791e2ff627114")}`
+            },
+            body:formData
+        })
+        .then(data =>{
+            console.log(data);
+           
+        })
+    }
     return (
       <div onPaste={handlePaste}>
         <DisplayImages images ={imageInput.blob} url = {imageInput.url}/>
@@ -58,7 +81,10 @@ const ImportModal = () => {
           />
         </div>
         <div style={{ marginTop: "10px" }}>
-            <Button style={{ marginTop: "10px" }} type="primary">
+            <Button 
+            style={{ marginTop: "10px" }} 
+            type="primary"
+            onClick={()=>handleImport()}>
               Import
             </Button>
         </div>
