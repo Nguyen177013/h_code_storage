@@ -26,7 +26,8 @@ public class AuthConfig {
                 .anyRequest().authenticated()
             )
             .cors(Customizer.withDefaults())
-            .csrf(csrf->csrf.disable());
+            .csrf(csrf->csrf.disable())
+            .httpBasic();
         
         return http.build();
     }
