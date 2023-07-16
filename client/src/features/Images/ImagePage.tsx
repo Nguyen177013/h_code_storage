@@ -22,6 +22,7 @@ const ImagePage = () => {
                 onCancel={() => setIsOpen(false)}
                 footer={false}
                 bodyStyle={{ minHeight: "18rem" }}
+                style={{ width: "100%", resize: "none" }}
             >
                 <ImportModal/>
             </Modal>
