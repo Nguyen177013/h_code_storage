@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "/public/css/index.css"
 import HomeLayout from "./components/Layout/HomeLayout"
 import HomePage from "./pages/HomePage"
-import ImagePage from "./pages/ImagePage"
-import NukeCodePage from "./pages/NukeCodePage"
+import ImagePage from "./features/Images/ImagePage"
+import NukeCodePage from "./features/SourceCode/NukeCodePage"
 function App() {
   return (
     <BrowserRouter>

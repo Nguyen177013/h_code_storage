@@ -41,14 +41,6 @@ const Nav = () => {
             onClick: () =>{
                 navigate("/sauce");
             }
-        },
-        {
-            label: "Gallery",
-            icon: <FileImageOutlined />,
-            key: "gallerry",
-            onClick: () =>{
-                navigate("/image");
-            }
         }
     ];
     return (
