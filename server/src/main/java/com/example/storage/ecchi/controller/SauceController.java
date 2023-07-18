@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.service.SauceService;
+
+import jakarta.servlet.annotation.MultipartConfig;
 
 @RestController
 @RequestMapping("api/sauce")
@@ -48,7 +51,10 @@ public class SauceController {
 	}
 	
 	@PostMapping("/upload")
-    public String handleFileUpload() {
+    public String handleFileUpload(@RequestParam("files") MultipartFile[] files) {
+		for(MultipartFile ele : files) {
+			System.out.println(ele);
+		}
         return "File uploaded successfully";
     }
 
