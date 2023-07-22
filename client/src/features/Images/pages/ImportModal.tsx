@@ -49,15 +49,15 @@ const ImportModal = () => {
       formData.append(`files`, file, file.name);
     });
     axios
-    .post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Basic ${window.btoa(
+      .post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Basic ${window.btoa(
             "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-            )}`,
-          },
-        })
-        .then((data) => {
+          )}`,
+        },
+      })
+      .then((data) => {
         console.log(data);
       });
   };

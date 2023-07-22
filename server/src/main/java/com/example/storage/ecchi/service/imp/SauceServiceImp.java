@@ -1,12 +1,18 @@
 package com.example.storage.ecchi.service.imp;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Singleton;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.repository.SauceRepository;
 import com.example.storage.ecchi.service.SauceService;
@@ -43,6 +49,25 @@ public class SauceServiceImp implements SauceService {
 	@Override
 	public SauceModel getSauceById(int id) {
 		return null;
+	}
+
+	@Override
+	public boolean uploadImage(MultipartFile[] files) {
+		String cloudUrl = System.getenv("CLOUD_URL");
+		Cloudinary cloudinary = new Cloudinary(cloudUrl);
+		cloudinary.config.secure = true;
+		for (MultipartFile file : files) {
+			try {
+				Map uploadFile = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "/HImage/"));
+				String secretUrl = uploadFile.get("secure_url").toString();
+				String public_id = uploadFile.get("public_id").toString();
+				System.out.println(secretUrl);
+				System.out.println(public_id);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return true;
 	}
 
 }

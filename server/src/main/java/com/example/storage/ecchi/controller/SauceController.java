@@ -17,8 +17,6 @@ import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.service.SauceService;
 import com.example.storage.ecchi.service.imp.SauceServiceImp;
 
-import jakarta.servlet.annotation.MultipartConfig;
-
 @RestController
 @RequestMapping("api/sauce")
 public class SauceController {
@@ -31,33 +29,35 @@ public class SauceController {
 		sauceService = new SauceServiceImp();
 		return sauceService.getSauce(page);
 	}
-	
+
 	@GetMapping("/sauces/{id}")
 	public SauceModel getSaucesById(@PathVariable("id") int id) {
 		sauceService = new SauceServiceImp();
 		return sauceService.getSauceById(id);
 	}
-	
+
 	@PostMapping("/sauces/add")
 	public void getSaucesById(@RequestBody SauceModel sauce) {
 		sauceService = new SauceServiceImp();
 		sauceService.addSauce(sauce);
 	}
-	
+
 	@PostMapping("/sauces/edit/{id}")
 	public void editSaucesById(@PathVariable("id") int id, @RequestBody SauceModel sauce) {
 		sauceService.editSauce(id, sauce);
 	}
-	
+
 	@DeleteMapping("/sauces/delete/{id}")
 	public void deleteSaucesById(@PathVariable("id") int id) {
 		sauceService.deleteSauce(id);
 	}
-	
+
 	@PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("files") MultipartFile[] files) {
-		
-        return "File uploaded successfully";
-    }
+	public String handleFileUpload(@RequestParam("files") MultipartFile[] files) {
+		if (sauceService.uploadImage(files)) {
+			return "File uploaded successfully";
+		}
+		return "File can not upload, please check again";
+	}
 
 }

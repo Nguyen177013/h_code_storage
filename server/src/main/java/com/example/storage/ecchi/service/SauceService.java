@@ -2,6 +2,8 @@ package com.example.storage.ecchi.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.storage.ecchi.model.SauceModel;
 
 public interface SauceService {
@@ -14,4 +16,6 @@ public interface SauceService {
 	public void editSauce(int id, SauceModel sauceModel);
 
 	public void deleteSauce(int id);
+	
+	public boolean uploadImage(MultipartFile[] files);
 }
