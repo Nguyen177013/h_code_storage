@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.service.SauceService;
+import com.example.storage.ecchi.service.imp.SauceServiceImp;
 
 import jakarta.servlet.annotation.MultipartConfig;
 
@@ -27,16 +28,19 @@ public class SauceController {
 
 	@GetMapping("/get-all")
 	public List<SauceModel> getSauces(@RequestParam(defaultValue = "0", value = "page") Integer page) {
+		sauceService = new SauceServiceImp();
 		return sauceService.getSauce(page);
 	}
 	
 	@GetMapping("/sauces/{id}")
 	public SauceModel getSaucesById(@PathVariable("id") int id) {
+		sauceService = new SauceServiceImp();
 		return sauceService.getSauceById(id);
 	}
 	
 	@PostMapping("/sauces/add")
 	public void getSaucesById(@RequestBody SauceModel sauce) {
+		sauceService = new SauceServiceImp();
 		sauceService.addSauce(sauce);
 	}
 	
@@ -52,9 +56,7 @@ public class SauceController {
 	
 	@PostMapping("/upload")
     public String handleFileUpload(@RequestParam("files") MultipartFile[] files) {
-		for(MultipartFile ele : files) {
-			System.out.println(ele);
-		}
+		
         return "File uploaded successfully";
     }
 
