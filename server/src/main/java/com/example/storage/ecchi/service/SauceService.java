@@ -8,6 +8,8 @@ import com.example.storage.ecchi.model.SauceModel;
 
 public interface SauceService {
 	List<SauceModel> getSauce(Integer no);
+	
+	List<SauceModel> getImage();
 
 	public SauceModel getSauceById(int id);
 

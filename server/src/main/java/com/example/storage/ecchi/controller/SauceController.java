@@ -29,7 +29,12 @@ public class SauceController {
 		sauceService = new SauceServiceImp();
 		return sauceService.getSauce(page);
 	}
-
+	
+	@GetMapping("/get-image")
+	public List<SauceModel> getImage(){
+		return sauceService.getImage();
+	}
+	
 	@GetMapping("/sauces/{id}")
 	public SauceModel getSaucesById(@PathVariable("id") int id) {
 		sauceService = new SauceServiceImp();

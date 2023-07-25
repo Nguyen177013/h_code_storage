@@ -32,8 +32,10 @@ public class SauceTransformer {
 		List<SauceTypeModel> sauceTypes = entity.getSauceType().stream().map(sauceTypeTransformer::apply).toList();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
-		model.setAuthorId(entity.getAuthor().getId());
-		model.setAuthorName(entity.getAuthor().getName());
+		if(!(entity.getAuthor() == null)) {
+			model.setAuthorId(entity.getAuthor().getId());			
+			model.setAuthorName(entity.getAuthor().getName());
+		}
 		model.setSauceImage(entity.getSauceImage());
 		model.setSauceUrl(entity.getSauceUrl());
 		model.setSauceType(sauceTypes);

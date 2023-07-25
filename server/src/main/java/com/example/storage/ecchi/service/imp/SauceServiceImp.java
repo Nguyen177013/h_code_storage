@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
-import com.cloudinary.Singleton;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.storage.ecchi.entity.Sauce;
 import com.example.storage.ecchi.entity.SauceHistory;
@@ -95,6 +94,11 @@ public class SauceServiceImp implements SauceService {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public List<SauceModel> getImage() {
+		return transformer.applyList(sauceRepository.getSauceImage());
 	}
 
 }
