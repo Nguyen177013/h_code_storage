@@ -1,6 +1,6 @@
 import { Image } from "antd";
 
-const DisplayImages = ({ images, url }: { images: File[], url: string }) => {
+const DisplayModalImages = ({ images, url }: { images: File[], url: string }) => {
     return (
         <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
             {
@@ -20,4 +20,4 @@ const DisplayImages = ({ images, url }: { images: File[], url: string }) => {
     );
 }
 
-export default DisplayImages;
+export default DisplayModalImages;

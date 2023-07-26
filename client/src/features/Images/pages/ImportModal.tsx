@@ -1,15 +1,14 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
-import DisplayImages from "./DisplayImages";
+import DisplayImages from "./DisplayModalImages";
 import axios from "axios";
 
-const ImportModal = () => {
+const ImportModal = ({setPending}:{setPending :(status:boolean) => void}) => {
   const [imageInput, setImageInput] = useState<imageInput>({
     author: "",
     blob: [],
     url: "",
   });
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setImageInput((prevInput) => ({
@@ -48,6 +47,7 @@ const ImportModal = () => {
     blob.forEach((file) => {
       formData.append(`files`, file, file.name);
     });
+    setPending(true);
     axios
       .post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
         headers: {
@@ -57,8 +57,8 @@ const ImportModal = () => {
           )}`,
         },
       })
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        setPending(false);
       });
   };
   return (
