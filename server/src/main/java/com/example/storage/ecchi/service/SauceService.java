@@ -17,7 +17,7 @@ public interface SauceService {
 
 	public void editSauce(int id, SauceModel sauceModel);
 
-	public void deleteSauce(int id);
+	public boolean deleteSauce(int id);
 	
 	public boolean uploadImage(MultipartFile[] files);
 }

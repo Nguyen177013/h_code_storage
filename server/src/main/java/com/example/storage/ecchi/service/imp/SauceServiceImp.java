@@ -38,6 +38,11 @@ public class SauceServiceImp implements SauceService {
 	@Autowired
 	SauceHistoryRepository sauceHistoryRepository;
 
+	String cloudUrl = System.getenv("CLOUD_URL");
+
+	Cloudinary cloudinary = new Cloudinary(cloudUrl);
+	
+
 	@Override
 	public List<SauceModel> getSauce(Integer no) {
 		Sort sort = Sort.by("id");
@@ -53,8 +58,13 @@ public class SauceServiceImp implements SauceService {
 	}
 
 	@Override
-	public void deleteSauce(int id) {
-		sauceRepository.deleteById(id);
+	public boolean deleteSauce(int id) {
+		Sauce sauce = sauceRepository.findById(id).get();
+		String firstTypeId = sauce.getSauceType().get(0).getType().getName();
+		if(firstTypeId.contains("Image")) {
+			
+		}
+		return true;
 	}
 
 	@Override
@@ -64,8 +74,6 @@ public class SauceServiceImp implements SauceService {
 
 	@Override
 	public boolean uploadImage(MultipartFile[] files) {
-		String cloudUrl = System.getenv("CLOUD_URL");
-		Cloudinary cloudinary = new Cloudinary(cloudUrl);
 		cloudinary.config.secure = true;
 		for (MultipartFile file : files) {
 			try {

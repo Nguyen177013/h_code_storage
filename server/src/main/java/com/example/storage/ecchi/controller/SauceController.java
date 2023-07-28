@@ -35,26 +35,29 @@ public class SauceController {
 		return sauceService.getImage();
 	}
 	
-	@GetMapping("/sauces/{id}")
+	@GetMapping("/{id}")
 	public SauceModel getSaucesById(@PathVariable("id") int id) {
 		sauceService = new SauceServiceImp();
 		return sauceService.getSauceById(id);
 	}
 
-	@PostMapping("/sauces/add")
+	@PostMapping("/add")
 	public void getSaucesById(@RequestBody SauceModel sauce) {
 		sauceService = new SauceServiceImp();
 		sauceService.addSauce(sauce);
 	}
 
-	@PostMapping("/sauces/edit/{id}")
+	@PostMapping("/edit/{id}")
 	public void editSaucesById(@PathVariable("id") int id, @RequestBody SauceModel sauce) {
 		sauceService.editSauce(id, sauce);
 	}
 
-	@DeleteMapping("/sauces/delete/{id}")
-	public void deleteSaucesById(@PathVariable("id") int id) {
-		sauceService.deleteSauce(id);
+	@DeleteMapping("/delete/{id}")
+	public String deleteSaucesById(@PathVariable("id") int id) {
+		if(sauceService.deleteSauce(id)) {
+			return "Sauce has been deleted";
+		}
+		return "something wrong with the server";
 	}
 
 	@PostMapping("/upload")
