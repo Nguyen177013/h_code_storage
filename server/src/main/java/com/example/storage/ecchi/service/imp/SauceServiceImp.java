@@ -62,7 +62,15 @@ public class SauceServiceImp implements SauceService {
 		Sauce sauce = sauceRepository.findById(id).get();
 		String firstTypeId = sauce.getSauceType().get(0).getType().getName();
 		if(firstTypeId.contains("Image")) {
-			
+			cloudinary.config.secure = true;
+			Map<?, ?> deleteParams = ObjectUtils.asMap("invalidate", true );
+			try {
+				sauceRepository.deleteById(id);
+				cloudinary.uploader().destroy(sauce.getSauceImage(), deleteParams);
+			} catch (IOException e) {
+				System.err.println("Error: "+ e.getMessage());
+				return false;
+			}
 		}
 		return true;
 	}
