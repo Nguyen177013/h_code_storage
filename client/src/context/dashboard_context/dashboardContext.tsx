@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, Dispatch } from "react";
+import { createContext, useReducer, Dispatch } from "react";
 import { initialState, imageReducer } from "./reducer";
 
 type ContextType = {

@@ -2,14 +2,14 @@ type reducer<T> = {
     type: string,
     payload: T
 }
-type NewType = {
+
+type dashboardReducerType = {
     years: datetimeSelectionType[]
     sauceHistory: SauceHistoryProp
     total: TotalUpload
 }
-type dashboardReducerType = NewType
 
 type dashboardActionType = {
     type: string,
-    payload:datetimeSelectionType[] | TotalUpload | SauceHistoryProp
+    payload: SauceHistoryProp & TotalUpload &  datetimeSelectionType[]
 }

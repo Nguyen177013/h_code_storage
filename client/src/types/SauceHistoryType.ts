@@ -4,9 +4,9 @@ type SauceHistory = {
 }
 
 type SauceHistoryProp = {
-    dateFormat: string[],
-    total: number[],
-    filterBy:string
+    "dateFormat": string[],
+    "total": number[],
+    "filterBy":string
 }
 
 type TotalUpload ={
