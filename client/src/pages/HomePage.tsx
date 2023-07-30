@@ -15,7 +15,6 @@ const HomePage = () => {
     getYear(dispatch);
     getTotal(dispatch);
   }, []);
-
   useEffect(() => {
     getDashBoard(date.year, date.option, dispatch);
   }, [date]);
