@@ -23,9 +23,10 @@ export function imageReducer(state: dashboardReducerType, action: any) {
                 sauceHistory: action.payload
             };
         case constants.GET_YEAR:
+            
             return {
                 ...state,
-                year: action.payload
+                years: action.payload
             }
               default:
         return state;

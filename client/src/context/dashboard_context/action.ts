@@ -2,7 +2,7 @@ import axios from "axios";
 import * as constants from "./constants";
 import { headers } from "../../api/headerCommon";
 
-export async function getYear() {
+export async function getYear(dispatch: React.Dispatch<any>) {
     const closesYear = await axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-year", {
         headers: headers
     });
@@ -11,16 +11,16 @@ export async function getYear() {
         value: year.year,
         label: year.year
     }));
-    return setYear(years);
+    return dispatch(setYear(years));
 }
-export async function getTotal() {
+export async function getTotal(dispatch: React.Dispatch<any>) {
     const req = await axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-total-upload", {
         headers: headers
     });
     const res: TotalUpload = await req.data;
-    return setTotal(res);
+    return dispatch(setTotal(res));
 }
-export async function getDashBoard(year: string, option: string) {
+export async function getDashBoard(year: string, option: string, dispatch: React.Dispatch<any>) {
     const req = await axios.get(`http://localhost:8080/hentaibu/api/sauce-history/get-history?year=${year}&dateUpload=${option}`, {
         headers: headers
     });
@@ -39,7 +39,7 @@ export async function getDashBoard(year: string, option: string) {
         filterBy:"month",
         total:total
     } as SauceHistoryProp
-    return setDashBoard(historyProp);
+    return dispatch(setDashBoard(historyProp));
 }
 
 function setDashBoard(payload: SauceHistoryProp) {
@@ -51,7 +51,7 @@ function setDashBoard(payload: SauceHistoryProp) {
 
 function setYear(payload: datetimeSelectionType[]) {
     return {
-        type: constants.GET_DASHBOARD,
+        type: constants.GET_YEAR,
         payload
     }
 }
