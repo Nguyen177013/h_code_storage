@@ -9,7 +9,7 @@ type dashboardReducerType = {
     total: TotalUpload
 }
 
-type dashboardActionType = {
+type dashboardActionType<T> = {
     type: string,
-    payload: SauceHistoryProp & TotalUpload &  datetimeSelectionType[]
+    payload: T
 }

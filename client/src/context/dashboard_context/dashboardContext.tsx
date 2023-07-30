@@ -1,5 +1,5 @@
 import { createContext, useReducer, Dispatch } from "react";
-import { initialState, imageReducer } from "./reducer";
+import { initialState, dashboardReducer } from "./reducer";
 
 type ContextType = {
   state: {
@@ -14,7 +14,7 @@ type Props = {
 }
 export const DashboardContext = createContext<ContextType | null>(null);
 const DashboardContextProvider = ({ children }: Props) =>{
-    const [state, dispatch] = useReducer(imageReducer, initialState);
+    const [state, dispatch] = useReducer(dashboardReducer, initialState);
     return (
         <DashboardContext.Provider value={{state, dispatch}}>
             {children}

@@ -1,7 +1,8 @@
 import * as constants from "./constants"
 
 export const initialState: ImageResponse[] = [];
-export function ImageReducer(state:ImageResponse[], action:reducer<ImageResponse>){
+
+export function imageReducer(state:ImageResponse[], action:dashboardActionType<any>){
     switch(action.type){
         case constants.ADD_IMAGE:
             return [...state, action.payload];

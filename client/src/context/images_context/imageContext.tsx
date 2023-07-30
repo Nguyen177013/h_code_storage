@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect, Dispatch } from "react";
-import { ImageReducer, initialState } from "./reducer";
+import { imageReducer, initialState } from "./reducer";
 
 type ContextType = {
   state: ImageResponse[];
@@ -9,4 +9,6 @@ type Props = {
   children: React.ReactNode;
 };
 export const DashboardContext = createContext<ContextType | null>(null);
-
+const ImageContextProvider = ({ children }: Props) => {
+  const [state, dispatch] = useReducer(imageReducer, initialState);
+};

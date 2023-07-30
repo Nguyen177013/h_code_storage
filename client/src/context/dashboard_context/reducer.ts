@@ -10,7 +10,7 @@ export const initialState = {
         totalUpload: 0
     }
 } as { years: datetimeSelectionType[], total: TotalUpload, sauceHistory:SauceHistoryProp};
-export function imageReducer(state: dashboardReducerType, action: dashboardActionType) {
+export function dashboardReducer(state: dashboardReducerType, action: dashboardActionType<SauceHistoryProp & TotalUpload &  datetimeSelectionType[]>) {
     switch (action.type) {
         case constants.GET_TOAl:
             return {
