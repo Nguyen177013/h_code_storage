@@ -41,7 +41,6 @@ public class SauceServiceImp implements SauceService {
 	String cloudUrl = System.getenv("CLOUD_URL");
 
 	Cloudinary cloudinary = new Cloudinary(cloudUrl);
-	
 
 	@Override
 	public List<SauceModel> getSauce(Integer no) {
@@ -61,14 +60,14 @@ public class SauceServiceImp implements SauceService {
 	public boolean deleteSauce(int id) {
 		Sauce sauce = sauceRepository.findById(id).get();
 		String firstTypeId = sauce.getSauceType().get(0).getType().getName();
-		if(firstTypeId.contains("Image")) {
+		if (firstTypeId.contains("Image")) {
 			cloudinary.config.secure = true;
-			Map<?, ?> deleteParams = ObjectUtils.asMap("invalidate", true );
+			Map<?, ?> deleteParams = ObjectUtils.asMap("invalidate", true);
 			try {
 				sauceRepository.deleteById(id);
 				cloudinary.uploader().destroy(sauce.getSauceImage(), deleteParams);
 			} catch (IOException e) {
-				System.err.println("Error: "+ e.getMessage());
+				System.err.println("Error: " + e.getMessage());
 				return false;
 			}
 		}
@@ -81,8 +80,9 @@ public class SauceServiceImp implements SauceService {
 	}
 
 	@Override
-	public boolean uploadImage(MultipartFile[] files) {
+	public SauceModel uploadImage(MultipartFile[] files) {
 		cloudinary.config.secure = true;
+		SauceModel sauceModel = null;
 		for (MultipartFile file : files) {
 			try {
 				Map<?, ?> uploadFile = cloudinary.uploader().upload(file.getBytes(),
@@ -90,7 +90,7 @@ public class SauceServiceImp implements SauceService {
 				String fileName = uploadFile.get("original_filename").toString();
 				String secretUrl = uploadFile.get("secure_url").toString();
 				String public_id = uploadFile.get("public_id").toString();
-				SauceType sauceType = new SauceType(); 
+				SauceType sauceType = new SauceType();
 				sauceType.setType(sauceTypeRepository.getImageType());
 				Sauce sauce = new Sauce();
 				sauce.setName(fileName);
@@ -105,11 +105,12 @@ public class SauceServiceImp implements SauceService {
 				sauceType.setSauce(sauce);
 				sauceTypeRepository.save(sauceType);
 				sauceHistoryRepository.save(sauceHistory);
+				sauceModel = transformer.apply(sauce);
 			} catch (IOException e) {
-				return false;
+				return null;
 			}
 		}
-		return true;
+		return sauceModel;
 	}
 
 	@Override

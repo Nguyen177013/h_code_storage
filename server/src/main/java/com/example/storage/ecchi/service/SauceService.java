@@ -19,5 +19,5 @@ public interface SauceService {
 
 	public boolean deleteSauce(int id);
 	
-	public boolean uploadImage(MultipartFile[] files);
+	public SauceModel uploadImage(MultipartFile[] files);
 }

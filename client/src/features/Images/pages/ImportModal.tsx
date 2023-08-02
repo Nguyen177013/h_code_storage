@@ -1,9 +1,10 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
 import DisplayImages from "./DisplayModalImages";
-import axios from "axios";
-
+import {addImage} from "../../../context/images_context/action";
+import useImageContext from "../../../hooks/useImage";
 const ImportModal = ({setPending}:{setPending :(status:boolean) => void}) => {
+  const {dispatch} = useImageContext();
   const [imageInput, setImageInput] = useState<imageInput>({
     author: "",
     blob: [],
@@ -48,18 +49,7 @@ const ImportModal = ({setPending}:{setPending :(status:boolean) => void}) => {
       formData.append(`files`, file, file.name);
     });
     setPending(true);
-    axios
-      .post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Basic ${window.btoa(
-            "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-          )}`,
-        },
-      })
-      .then(() => {
-        setPending(false);
-      });
+    addImage(dispatch,formData,setPending);
   };
   return (
     <div onPaste={handlePaste}>

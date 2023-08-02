@@ -37,13 +37,13 @@ const HomePage = () => {
           <div>
             <div>
               <h4>
-                {" "}
                 Sauces have been add from today:{" "}
-                <CountUp
-                  end={state.total.totalUpload}
-                  duration={3}
-                ></CountUp>{" "}
+                <CountUp end={state.total.totalUpload} duration={3}></CountUp>
               </h4>
+              {(state.total.totalUpload > 0 && state.total.totalUpload < 5) 
+              ?<h3>Too much man</h3>
+              : <h3>U gud ?</h3>
+            }
             </div>
           </div>
         </Col>

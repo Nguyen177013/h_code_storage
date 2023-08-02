@@ -1,26 +1,15 @@
 import { Button, Modal, Spin } from "antd";
 import { useState, useEffect } from "react";
 import ImportModal from "./pages/ImportModal";
-import axios from "axios";
 import ImageList from "./pages/ImageList";
-
+import {getImages} from "../../context/images_context/action";
+import useImageContext from "../../hooks/useImage";
 const ImagePage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [images, setImages] = useState<ImageResponse[]>([]);
   const [pending, setPending] = useState<boolean>(false);
+  const {dispatch, state} = useImageContext();
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/hentaibu/api/sauce/get-image", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${window.btoa(
-            "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-          )}`,
-        },
-      })
-      .then((res) => {
-        setImages(res.data);
-      });
+    getImages(dispatch);
   }, []);
   return (
     <>
@@ -34,7 +23,7 @@ const ImagePage = () => {
             Import Image
           </Button>
           <h2 style={{ display: "inline" }}>Image of this month</h2>
-          <ImageList imageData={images} />
+          <ImageList imageData={state} />
         </div>
         <Modal
           title="Import Image"

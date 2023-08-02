@@ -29,12 +29,12 @@ public class SauceController {
 		sauceService = new SauceServiceImp();
 		return sauceService.getSauce(page);
 	}
-	
+
 	@GetMapping("/get-image")
-	public List<SauceModel> getImage(){
+	public List<SauceModel> getImage() {
 		return sauceService.getImage();
 	}
-	
+
 	@GetMapping("/{id}")
 	public SauceModel getSaucesById(@PathVariable("id") int id) {
 		sauceService = new SauceServiceImp();
@@ -54,18 +54,15 @@ public class SauceController {
 
 	@DeleteMapping("/delete/{id}")
 	public String deleteSaucesById(@PathVariable("id") int id) {
-		if(sauceService.deleteSauce(id)) {
+		if (sauceService.deleteSauce(id)) {
 			return "Sauce has been deleted";
 		}
 		return "something wrong with the server";
 	}
 
 	@PostMapping("/upload")
-	public String handleFileUpload(@RequestParam("files") MultipartFile[] files) {
-		if (sauceService.uploadImage(files)) {
-			return "File uploaded successfully";
-		}
-		return "File can not upload, please check again";
+	public SauceModel handleFileUpload(@RequestParam("files") MultipartFile[] files) {
+		return sauceService.uploadImage(files);
 	}
 
 }
