@@ -34,7 +34,7 @@ const ImagePage = () => {
           bodyStyle={{ minHeight: "18rem" }}
           style={{ width: "100%", resize: "none" }}
         >
-          <ImportModal setPending={setPending} />
+          <ImportModal setPending={setPending} setIsOpen={setIsOpen}/>
         </Modal>
       </Spin>
     </>

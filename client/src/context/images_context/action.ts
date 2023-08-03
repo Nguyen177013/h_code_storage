@@ -13,19 +13,24 @@ export async function getImages(dispatch: React.Dispatch<any>) {
     const res: ImageResponse[] = await req.data;
     dispatch(getAllImage(res));
 }
-export async function addImage(dispatch: React.Dispatch<any>, formData: FormData, setPending: (status: boolean) => void) {
-    const req = await axios.post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Basic ${window.btoa(
-                "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-            )}`,
-        },
-    })
-    const res: ImageResponse = await req.data;
-    dispatch(setImage(res));
-    setPending(false);
-    getImages(dispatch);
+export async function addImage(dispatch: React.Dispatch<any>, formData: FormData) {
+    try {
+
+        const req = await axios.post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Basic ${window.btoa(
+                    "hentaibu:507c6e34b77b5916c3b791e2ff627114"
+                )}`,
+            },
+        })
+        const res: ImageResponse = await req.data;
+        dispatch(setImage(res));
+    }
+    catch (ex) {
+        const error = ex as Error;
+        throw new Error(error.message);
+    }
 }
 function getAllImage(payload: ImageResponse[]) {
     return {

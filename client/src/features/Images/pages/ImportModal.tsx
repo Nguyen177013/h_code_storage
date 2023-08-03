@@ -1,10 +1,16 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
 import DisplayImages from "./DisplayModalImages";
-import {addImage} from "../../../context/images_context/action";
+import { addImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
-const ImportModal = ({setPending}:{setPending :(status:boolean) => void}) => {
-  const {dispatch} = useImageContext();
+const ImportModal = ({
+  setPending,
+  setIsOpen,
+}: {
+  setPending: (status: boolean) => void;
+  setIsOpen: (status: boolean) => void;
+}) => {
+  const { dispatch } = useImageContext();
   const [imageInput, setImageInput] = useState<imageInput>({
     author: "",
     blob: [],
@@ -49,7 +55,15 @@ const ImportModal = ({setPending}:{setPending :(status:boolean) => void}) => {
       formData.append(`files`, file, file.name);
     });
     setPending(true);
-    addImage(dispatch,formData,setPending);
+    addImage(dispatch, formData).then(() => {
+      setPending(false);
+      setIsOpen(false);
+      setImageInput({
+        author: "",
+        blob: [],
+        url: "",
+      });
+    });
   };
   return (
     <div onPaste={handlePaste}>
