@@ -3,6 +3,9 @@ import { useState } from "react";
 import DisplayImages from "./DisplayModalImages";
 import { addImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
+import { fileReduce } from "../../../utils/fileReduce";
+
+const staticFileSize = 10485760;
 const ImportModal = ({
   setPending,
   setIsOpen,
@@ -51,19 +54,24 @@ const ImportModal = ({
     if (blob.length === 0 && url === "") {
       return;
     }
+    setPending;
     blob.forEach((file) => {
-      formData.append(`files`, file, file.name);
+      // formData.append(`files`, file, file.name);
+      console.log(file);
+      if (file.size > staticFileSize) {
+        fileReduce(file);
+      }
     });
-    setPending(true);
-    addImage(dispatch, formData).then(() => {
-      setPending(false);
-      setIsOpen(false);
-      setImageInput({
-        author: "",
-        blob: [],
-        url: "",
-      });
-    });
+    // setPending(true);
+    // addImage(dispatch, formData).then(() => {
+    //   setPending(false);
+    //   setIsOpen(false);
+    //   setImageInput({
+    //     author: "",
+    //     blob: [],
+    //     url: "",
+    //   });
+    // });
   };
   return (
     <div onPaste={handlePaste}>
