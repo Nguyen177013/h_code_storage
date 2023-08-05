@@ -62,6 +62,7 @@ public class SauceController {
 
 	@PostMapping("/upload")
 	public SauceModel handleFileUpload(@RequestParam("files") MultipartFile[] files) {
+		System.out.println("hello");
 		return sauceService.uploadImage(files);
 	}
 

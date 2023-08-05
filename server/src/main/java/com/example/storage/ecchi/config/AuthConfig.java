@@ -36,7 +36,7 @@ public class AuthConfig {
     InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.builder()
             .username("hentaibu")
-            .password("{noop}507c6e34b77b5916c3b791e2ff627114") // Use "{noop}" to indicate plaintext password
+            .password("{noop}507c6e34b77b5916c3b791e2ff627114")
             .roles("USER")
             .build();
         return new InMemoryUserDetailsManager(user);
