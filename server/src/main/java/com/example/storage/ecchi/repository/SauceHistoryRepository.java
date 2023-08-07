@@ -19,7 +19,8 @@ public interface SauceHistoryRepository extends JpaRepository<SauceHistory, Inte
 			+ "WHEN 'month' THEN extract('month' from h.date_upload) " 
 			+ "END AS dateFormat " + "FROM history h "
 			+ "WHERE (:year IS NULL OR :year = '' OR extract(year from h.date_upload) = CAST(:year AS INTEGER)) "
-			+ "GROUP BY dateFormat")
+			+ "GROUP BY dateFormat "
+			+ "ORDER BY dateFormat ASC")
 	List<TotalSauceHistory> countSauceHistory(@Param("year") String year, @Param("dateUpload") String dateUpload);
 
 	@Query(nativeQuery = true, value = "SELECT CAST(extract('year' from h.date_upload) AS INTEGER) AS year "
