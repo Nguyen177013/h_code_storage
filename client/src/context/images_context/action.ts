@@ -23,7 +23,7 @@ export async function addImage(dispatch: React.Dispatch<any>, formData: FormData
                 )}`,
             },
         })
-        const res: ImageResponse = await req.data;
+        const res: ImageResponse[] = await req.data;
         dispatch(setImage(res));
     }
     catch (ex) {
@@ -38,7 +38,7 @@ function getAllImage(payload: ImageResponse[]) {
     }
 }
 
-function setImage(payload: ImageResponse) {
+function setImage(payload: ImageResponse[]) {
     return {
         type: constants.ADD_IMAGE,
         payload

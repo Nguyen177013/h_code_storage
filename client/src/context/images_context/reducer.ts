@@ -5,7 +5,8 @@ export const initialState: ImageResponse[] = [];
 export function imageReducer(state: ImageResponse[], action: dashboardActionType<ImageResponse[] & ImageResponse>) {
     switch (action.type) {
         case constants.ADD_IMAGE:
-            return [...state, action.payload];
+            state = [...state, ...action.payload];
+            return state;
         case constants.GET_IMAGES:
             state = action.payload;
             return state;

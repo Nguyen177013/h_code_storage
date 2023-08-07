@@ -1,6 +1,7 @@
 package com.example.storage.ecchi.service.imp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -80,9 +81,9 @@ public class SauceServiceImp implements SauceService {
 	}
 
 	@Override
-	public SauceModel uploadImage(MultipartFile[] files) {
+	public List<SauceModel> uploadImage(MultipartFile[] files) {
 		cloudinary.config.secure = true;
-		SauceModel sauceModel = null;
+		List<SauceModel> sauceModels = new ArrayList<>();
 		for (MultipartFile file : files) {
 			try {
 				Map<?, ?> uploadFile = cloudinary.uploader().upload(file.getBytes(),
@@ -105,12 +106,12 @@ public class SauceServiceImp implements SauceService {
 				sauceType.setSauce(sauce);
 				sauceTypeRepository.save(sauceType);
 				sauceHistoryRepository.save(sauceHistory);
-				sauceModel = transformer.apply(sauce);
+				sauceModels.add(transformer.apply(sauce));
 			} catch (IOException e) {
 				return null;
 			}
 		}
-		return sauceModel;
+		return sauceModels;
 	}
 
 	@Override
