@@ -48,30 +48,33 @@ const ImportModal = ({
     }));
   };
 
-  const handleImport = () => {
+  const handleImport = async () => {
+    setPending(true);
     const formData = new FormData();
     const { blob, url } = imageInput;
     if (blob.length === 0 && url === "") {
       return;
     }
-    setPending;
-    blob.forEach((file) => {
-      // formData.append(`files`, file, file.name);
-      console.log(file);
+    for (let file of blob) {
       if (file.size > staticFileSize) {
-        fileReduce(file);
+        const blob = await fileReduce(file);
+        const fileReturn = new File([blob], file.name, {
+          type: blob.type,
+        });
+        formData.append(`files`, fileReturn, file.name);
+      } else {
+        formData.append(`files`, file, file.name);
       }
+    }
+    addImage(dispatch, formData).then(() => {
+      setPending(false);
+      setIsOpen(false);
+      setImageInput({
+        author: "",
+        blob: [],
+        url: "",
+      });
     });
-    // setPending(true);
-    // addImage(dispatch, formData).then(() => {
-    //   setPending(false);
-    //   setIsOpen(false);
-    //   setImageInput({
-    //     author: "",
-    //     blob: [],
-    //     url: "",
-    //   });
-    // });
   };
   return (
     <div onPaste={handlePaste}>

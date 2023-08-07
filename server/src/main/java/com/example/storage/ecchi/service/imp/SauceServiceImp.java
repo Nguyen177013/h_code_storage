@@ -84,31 +84,31 @@ public class SauceServiceImp implements SauceService {
 		cloudinary.config.secure = true;
 		SauceModel sauceModel = null;
 		for (MultipartFile file : files) {
-//			try {
-//				Map<?, ?> uploadFile = cloudinary.uploader().upload(file.getBytes(),
-//						ObjectUtils.asMap("folder", "/HImage/"));
-//				String fileName = uploadFile.get("original_filename").toString();
-//				String secretUrl = uploadFile.get("secure_url").toString();
-//				String public_id = uploadFile.get("public_id").toString();
-//				SauceType sauceType = new SauceType();
-//				sauceType.setType(sauceTypeRepository.getImageType());
-//				Sauce sauce = new Sauce();
-//				sauce.setName(fileName);
-//				sauce.setSauceUrl(secretUrl);
-//				sauce.setSauceImage(public_id);
-//				SauceHistory sauceHistory = new SauceHistory();
-//				sauceHistory.setDateUpload(new Date());
-//				sauce.setSauceType(List.of(sauceType));
-//				sauce.setSauceHistory(List.of(sauceHistory));
-//				sauceRepository.save(sauce);
-//				sauceHistory.setSauce(sauce);
-//				sauceType.setSauce(sauce);
-//				sauceTypeRepository.save(sauceType);
-//				sauceHistoryRepository.save(sauceHistory);
-//				sauceModel = transformer.apply(sauce);
-//			} catch (IOException e) {
-//				return null;
-//			}
+			try {
+				Map<?, ?> uploadFile = cloudinary.uploader().upload(file.getBytes(),
+						ObjectUtils.asMap("folder", "/HImage/"));
+				String fileName = uploadFile.get("original_filename").toString();
+				String secretUrl = uploadFile.get("secure_url").toString();
+				String public_id = uploadFile.get("public_id").toString();
+				SauceType sauceType = new SauceType();
+				sauceType.setType(sauceTypeRepository.getImageType());
+				Sauce sauce = new Sauce();
+				sauce.setName(fileName);
+				sauce.setSauceUrl(secretUrl);
+				sauce.setSauceImage(public_id);
+				SauceHistory sauceHistory = new SauceHistory();
+				sauceHistory.setDateUpload(new Date());
+				sauce.setSauceType(List.of(sauceType));
+				sauce.setSauceHistory(List.of(sauceHistory));
+				sauceRepository.save(sauce);
+				sauceHistory.setSauce(sauce);
+				sauceType.setSauce(sauce);
+				sauceTypeRepository.save(sauceType);
+				sauceHistoryRepository.save(sauceHistory);
+				sauceModel = transformer.apply(sauce);
+			} catch (IOException e) {
+				return null;
+			}
 		}
 		return sauceModel;
 	}

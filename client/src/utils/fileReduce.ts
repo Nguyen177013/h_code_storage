@@ -1,19 +1,11 @@
-export function fileReduce(file: File) {
-    const blobURL = window.URL.createObjectURL(file);
-    const img = new Image();
-    img.src = blobURL.toString();
-    let resultFile = null
-    img.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        const imageType = file.type;
-        const ctx = canvas.getContext("2d");
-        ctx?.drawImage(img, 0, 0);
-        canvas.toBlob(blob => {
-            if(blob)
-            resultFile = new File([blob], file.name);
-        }, imageType);
-    }
+export async function fileReduce(file: File): Promise<Blob> {
+    const imageBitmap = await createImageBitmap(file);
+    const canvas = document.createElement('canvas');
+    canvas.width = imageBitmap.width;
+    canvas.height = imageBitmap.height;
+    const ctx = canvas.getContext('2d');
+    ctx?.drawImage(imageBitmap, 0, 0);
+    return await new Promise((resolve: any) => {
+        canvas.toBlob(resolve, "image/jpeg",1);
+    });
 }

@@ -15,7 +15,6 @@ export async function getImages(dispatch: React.Dispatch<any>) {
 }
 export async function addImage(dispatch: React.Dispatch<any>, formData: FormData) {
     try {
-
         const req = await axios.post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
