@@ -1,22 +1,12 @@
 import { CloseCircleTwoTone } from "@ant-design/icons";
 import { Col, Image, Popconfirm } from "antd";
-import axios from "axios";
+import { deleteImage } from "../../../context/images_context/action";
+import useImageContext from "../../../hooks/useImage";
 
 const DisplayImages = ({ image }: { image: ImageResponse }) => {
-  const handleDeleteImage = async () => {
-    const req = await axios.delete(
-      `http://localhost:8080/hentaibu/api/sauce/delete/${image.id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${window.btoa(
-            "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-          )}`,
-        },
-      }
-    );
-    const res = await req.data;
-    console.log(res);
+  const { dispatch } = useImageContext();
+  const handleDeleteImage = () => {
+    deleteImage(dispatch, image.id);
   };
   return (
     <Col key={image.sauceUrl} span={4}>

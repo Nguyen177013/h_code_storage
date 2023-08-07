@@ -13,7 +13,7 @@ export function imageReducer(state: imageReduce, action: dashboardActionType<Ima
         case constants.ADD_IMAGE:
             state = {
                 ...state,
-                images: [...state.images, ...action.payload]
+                images: [...action.payload, ...state.images]
             }
             return state;
         case constants.GET_IMAGES:
@@ -29,7 +29,7 @@ export function imageReducer(state: imageReduce, action: dashboardActionType<Ima
             }
             return state;
         case constants.REMOVE_IMAGE:
-            const filter = state.images.filter(map => map.id !== action.payload.id);
+            const filter = state.images.filter(map => map.id !== action.payload);
             state = {
                 ...state,
                 images: filter

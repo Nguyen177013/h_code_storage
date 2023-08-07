@@ -47,7 +47,6 @@ public class SauceServiceImp implements SauceService {
 	@Override
 	public Page<SauceModel> getSauce(Integer page, String sauceTypeId, Integer month, Integer year) {
 		Pageable pageable = PageRequest.of(page, 12);
-		System.out.println(sauceRepository.getAllSauce(pageable, sauceTypeId, month, year).getTotalPages());
 		return sauceRepository.getAllSauce(pageable, sauceTypeId, month, year).map(sauce -> transformer.apply(sauce));
 	}
 

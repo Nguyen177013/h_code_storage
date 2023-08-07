@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as constants from "./constants"
 
-export async function getImages(dispatch: React.Dispatch<any>, page:number = 0) {
+export async function getImages(dispatch: React.Dispatch<any>, page: number = 0) {
     const req = await axios.get(`http://localhost:8080/hentaibu/api/sauce/get-all?sauceTypeId=9&page=${page}`, {
         headers: {
             "Content-Type": "application/json",
@@ -32,6 +32,22 @@ export async function addImage(dispatch: React.Dispatch<any>, formData: FormData
         throw new Error(error.message);
     }
 }
+export async function deleteImage(dispatch: React.Dispatch<any>, imageId: number) {
+    const req = await axios.delete(
+        `http://localhost:8080/hentaibu/api/sauce/delete/${imageId}`,
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Basic ${window.btoa(
+                    "hentaibu:507c6e34b77b5916c3b791e2ff627114"
+                )}`,
+            },
+        }
+    );
+    console.log(req.data);
+    dispatch(removeImage(imageId));
+}
+
 function getAllImage(payload: ImageResponse[]) {
     return {
         type: constants.GET_IMAGES,
@@ -51,7 +67,7 @@ function setTotalPage(payload: number) {
         payload
     }
 }
-function removeImage(payload: ImageResponse[]) {
+function removeImage(payload: number) {
     return {
         type: constants.REMOVE_IMAGE,
         payload
