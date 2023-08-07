@@ -1,18 +1,40 @@
 import * as constants from "./constants"
+type imageReduce = {
+    images: ImageResponse[],
+    totalPage: number
+}
+export const initialState: imageReduce = {
+    images: [],
+    totalPage: 0
+};
 
-export const initialState: ImageResponse[] = [];
-
-export function imageReducer(state: ImageResponse[], action: dashboardActionType<ImageResponse[] & ImageResponse>) {
+export function imageReducer(state: imageReduce, action: dashboardActionType<ImageResponse[] & ImageResponse & number>) {
     switch (action.type) {
         case constants.ADD_IMAGE:
-            state = [...state, ...action.payload];
+            state = {
+                ...state,
+                images: [...state.images, ...action.payload]
+            }
             return state;
         case constants.GET_IMAGES:
-            state = action.payload;
+            state = {
+                ...state,
+                images: action.payload
+            }
+            return state;
+        case constants.GET_TOTAL_PAGE:
+            state = {
+                ...state,
+                totalPage: action.payload
+            }
             return state;
         case constants.REMOVE_IMAGE:
-            const filter = state.filter(image => image.id != action.payload.id);
-            return filter;
+            const filter = state.images.filter(map => map.id !== action.payload.id);
+            state = {
+                ...state,
+                images: filter
+            }
+            return state;
         default:
             return state;
     }

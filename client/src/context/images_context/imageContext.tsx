@@ -2,7 +2,10 @@ import { createContext, useReducer, Dispatch } from "react";
 import { imageReducer, initialState } from "./reducer";
 
 type ContextType = {
-  state: ImageResponse[];
+  state: {
+    images:ImageResponse[],
+    totalPage: number
+  };
   dispatch: Dispatch<any>;
 };
 type Props = {
