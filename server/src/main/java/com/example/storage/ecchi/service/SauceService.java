@@ -7,10 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.storage.ecchi.model.SauceModel;
 
 public interface SauceService {
-	List<SauceModel> getSauce(Integer no);
+	public List<SauceModel> getSauce(Integer page, String sauceTypeId);
 	
-	List<SauceModel> getImage();
-
 	public SauceModel getSauceById(int id);
 
 	public void addSauce(SauceModel sauceModel);

@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,9 +44,9 @@ public class SauceServiceImp implements SauceService {
 	Cloudinary cloudinary = new Cloudinary(cloudUrl);
 
 	@Override
-	public List<SauceModel> getSauce(Integer no) {
-		Sort sort = Sort.by("id");
-		return sauceRepository.getAllSauce(PageRequest.of(no, 2, sort)).map(ele -> transformer.apply(ele)).getContent();
+	public List<SauceModel> getSauce(Integer page, String sauceTypeId) {
+		Pageable pageable = PageRequest.of(page, 2);
+		return transformer.applyList(sauceRepository.getAllSauce(pageable, sauceTypeId).getContent());
 	}
 
 	@Override
@@ -114,9 +114,5 @@ public class SauceServiceImp implements SauceService {
 		return sauceModels;
 	}
 
-	@Override
-	public List<SauceModel> getImage() {
-		return transformer.applyList(sauceRepository.getSauceImage());
-	}
 
 }

@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.service.SauceService;
-import com.example.storage.ecchi.service.imp.SauceServiceImp;
 
 @RestController
 @RequestMapping("api/sauce")
@@ -25,25 +24,17 @@ public class SauceController {
 	SauceService sauceService;
 
 	@GetMapping("/get-all")
-	public List<SauceModel> getSauces(@RequestParam(defaultValue = "0", value = "page") Integer page) {
-		sauceService = new SauceServiceImp();
-		return sauceService.getSauce(page);
-	}
-
-	@GetMapping("/get-image")
-	public List<SauceModel> getImage() {
-		return sauceService.getImage();
+	public List<SauceModel> getSauces(@RequestParam(defaultValue = "0") Integer page, String sauceTypeId) {
+		return sauceService.getSauce(page, sauceTypeId);
 	}
 
 	@GetMapping("/{id}")
 	public SauceModel getSaucesById(@PathVariable("id") int id) {
-		sauceService = new SauceServiceImp();
 		return sauceService.getSauceById(id);
 	}
 
 	@PostMapping("/add")
 	public void getSaucesById(@RequestBody SauceModel sauce) {
-		sauceService = new SauceServiceImp();
 		sauceService.addSauce(sauce);
 	}
 
