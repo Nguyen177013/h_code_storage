@@ -2,7 +2,7 @@ import axios from "axios";
 import * as constants from "./constants"
 
 export async function getImages(dispatch: React.Dispatch<any>) {
-    const req = await axios.get("http://localhost:8080/hentaibu/api/sauce/get-image", {
+    const req = await axios.get("http://localhost:8080/hentaibu/api/sauce/get-all?sauceTypeId=9", {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Basic ${window.btoa(
@@ -10,8 +10,8 @@ export async function getImages(dispatch: React.Dispatch<any>) {
             )}`,
         },
     });
-    const res: ImageResponse[] = await req.data;
-    dispatch(getAllImage(res));
+    const res: PageType<ImageResponse> = await req.data;
+    dispatch(getAllImage(res.content));
 }
 export async function addImage(dispatch: React.Dispatch<any>, formData: FormData) {
     try {

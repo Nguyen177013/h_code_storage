@@ -2,12 +2,13 @@ package com.example.storage.ecchi.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.ecchi.model.SauceModel;
 
 public interface SauceService {
-	public List<SauceModel> getSauce(Integer page, String sauceTypeId);
+	public Page<SauceModel> getSauce(Integer page, String sauceTypeId, Integer month, Integer year);
 	
 	public SauceModel getSauceById(int id);
 

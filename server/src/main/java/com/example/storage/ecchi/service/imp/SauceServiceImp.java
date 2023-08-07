@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,9 +45,10 @@ public class SauceServiceImp implements SauceService {
 	Cloudinary cloudinary = new Cloudinary(cloudUrl);
 
 	@Override
-	public List<SauceModel> getSauce(Integer page, String sauceTypeId) {
-		Pageable pageable = PageRequest.of(page, 2);
-		return transformer.applyList(sauceRepository.getAllSauce(pageable, sauceTypeId).getContent());
+	public Page<SauceModel> getSauce(Integer page, String sauceTypeId, Integer month, Integer year) {
+		Pageable pageable = PageRequest.of(page, 12);
+		System.out.println(sauceRepository.getAllSauce(pageable, sauceTypeId, month, year).getTotalPages());
+		return sauceRepository.getAllSauce(pageable, sauceTypeId, month, year).map(sauce -> transformer.apply(sauce));
 	}
 
 	@Override
@@ -113,6 +115,5 @@ public class SauceServiceImp implements SauceService {
 		}
 		return sauceModels;
 	}
-
 
 }
