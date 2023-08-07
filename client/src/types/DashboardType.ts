@@ -3,6 +3,9 @@ type datasetType = {
     data: number[]
     borderColor: string,
     backgroundColor: string,
+    pointRadius: number,
+    pointHoverRadius: number,
+    pointHitRadius: number, 
 }
 
 type datetimeSelectionType = {
