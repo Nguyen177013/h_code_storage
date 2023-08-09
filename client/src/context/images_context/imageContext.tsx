@@ -4,7 +4,8 @@ import { imageReducer, initialState } from "./reducer";
 type ContextType = {
   state: {
     images:ImageResponse[],
-    totalPage: number
+    totalPage: number,
+    currentPage: number
   };
   dispatch: Dispatch<any>;
 };

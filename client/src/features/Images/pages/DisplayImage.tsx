@@ -4,9 +4,9 @@ import { deleteImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
 
 const DisplayImages = ({ image }: { image: ImageResponse }) => {
-  const { dispatch } = useImageContext();
-  const handleDeleteImage = () => {
-    deleteImage(dispatch, image.id);
+  const {dispatch, state} = useImageContext();
+  const handleDeleteImage = async () => {
+    await deleteImage(dispatch, image.id, state.currentPage);
   };
   return (
     <Col key={image.sauceUrl} span={4}>

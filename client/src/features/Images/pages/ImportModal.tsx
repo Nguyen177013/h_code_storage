@@ -13,7 +13,7 @@ const ImportModal = ({
   setPending: (status: boolean) => void;
   setIsOpen: (status: boolean) => void;
 }) => {
-  const { dispatch } = useImageContext();
+  const { dispatch, state } = useImageContext();
   const [imageInput, setImageInput] = useState<imageInput>({
     author: "",
     blob: [],
@@ -26,7 +26,6 @@ const ImportModal = ({
       [name]: value,
     }));
   };
-
   const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
     const clipboardItems = Array.from(event.clipboardData.items).filter(
       (item) => /^image\//.test(item.type)
@@ -66,7 +65,7 @@ const ImportModal = ({
         formData.append(`files`, file, file.name);
       }
     }
-    addImage(dispatch, formData).then(() => {
+    addImage(dispatch, formData, state.currentPage).then(() => {
       setPending(false);
       setIsOpen(false);
       setImageInput({

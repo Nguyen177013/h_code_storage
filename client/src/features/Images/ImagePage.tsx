@@ -2,7 +2,7 @@ import { Button, Modal, Space, Spin, Pagination } from "antd";
 import { useState, useEffect } from "react";
 import ImportModal from "./pages/ImportModal";
 import ImageList from "./pages/ImageList";
-import { getImages } from "../../context/images_context/action";
+import { getImages, setCurrentPage } from "../../context/images_context/action";
 import useImageContext from "../../hooks/useImage";
 const ImagePage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -13,6 +13,7 @@ const ImagePage = () => {
   }, []);
   const handleChangePage = (page: number) => {
     getImages(dispatch, (page - 1));
+    dispatch(setCurrentPage(page - 1));
   };
   return (
     <>

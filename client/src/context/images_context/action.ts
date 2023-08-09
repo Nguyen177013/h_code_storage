@@ -14,9 +14,9 @@ export async function getImages(dispatch: React.Dispatch<any>, page: number = 0)
     dispatch(getAllImage(res.content));
     dispatch(setTotalPage(res.totalElements));
 }
-export async function addImage(dispatch: React.Dispatch<any>, formData: FormData) {
+export async function addImage(dispatch: React.Dispatch<any>, formData: FormData, currentPage:number) {
     try {
-        const req = await axios.post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
+        await axios.post("http://localhost:8080/hentaibu/api/sauce/upload", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Basic ${window.btoa(
@@ -24,46 +24,48 @@ export async function addImage(dispatch: React.Dispatch<any>, formData: FormData
                 )}`,
             },
         })
-        const res: ImageResponse[] = await req.data;
-        dispatch(setImage(res));
+        getImages(dispatch, currentPage);
     }
     catch (ex) {
         const error = ex as Error;
         throw new Error(error.message);
     }
 }
-export async function deleteImage(dispatch: React.Dispatch<any>, imageId: number) {
-    const req = await axios.delete(
-        `http://localhost:8080/hentaibu/api/sauce/delete/${imageId}`,
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Basic ${window.btoa(
-                    "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-                )}`,
-            },
-        }
-    );
-    console.log(req.data);
-    dispatch(removeImage(imageId));
-}
+export async function deleteImage(dispatch: React.Dispatch<any>, imageId: number, currentPage : number) {
+    try {
 
+        await axios.delete(
+            `http://localhost:8080/hentaibu/api/sauce/delete/${imageId}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Basic ${window.btoa(
+                        "hentaibu:507c6e34b77b5916c3b791e2ff627114"
+                    )}`,
+                },
+            }
+        );
+        dispatch(removeImage(imageId));
+        getImages(dispatch, currentPage);
+    } catch (bean) {
+        console.log(bean);
+    }
+}
 function getAllImage(payload: ImageResponse[]) {
     return {
         type: constants.GET_IMAGES,
         payload
     }
 }
-
-function setImage(payload: ImageResponse[]) {
-    return {
-        type: constants.ADD_IMAGE,
-        payload
-    }
-}
 function setTotalPage(payload: number) {
     return {
         type: constants.GET_TOTAL_PAGE,
+        payload
+    }
+}
+export function setCurrentPage(payload: number) {
+    return {
+        type: constants.SET_CURRENT_PAGE,
         payload
     }
 }
