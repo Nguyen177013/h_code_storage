@@ -3,8 +3,8 @@ type ImageResponse = {
     authorName?: string,
     sauceUrl: string,
     sauceImage: string,
-    sauceType?:number[]
-    id: number
+    sauceType?:SauceType[]
+    id: number | null
 }
 type imageInput = {
     author: string,

@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import com.example.storage.ecchi.entity.Sauce;
+import com.example.storage.ecchi.entity.SauceHistory;
+import com.example.storage.ecchi.entity.SauceType;
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.model.SauceTypeModel;
+import com.example.storage.ecchi.repository.AuthorRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +22,7 @@ public class SauceTransformer {
 
 	private final SauceTypeTransformer sauceTypeTransformer;
 
+	private final AuthorRepository authorRepository;
 
 	public List<SauceModel> applyList(List<Sauce> entities) {
 		if (ObjectUtils.isEmpty(entities)) {
@@ -40,5 +44,15 @@ public class SauceTransformer {
 		model.setSauceUrl(entity.getSauceUrl());
 		model.setSauceType(sauceTypes);
 		return model;
+	}
+	public Sauce applySauceModel(SauceModel model, List<SauceHistory> historys, List<SauceType> types) {
+		Sauce sauce = new Sauce();
+		sauce.setAuthor(authorRepository.findById(model.getAuthorId()).get());
+		sauce.setName(model.getName());
+		sauce.setSauceHistory(historys);
+		sauce.setSauceImage(model.getSauceImage());
+		sauce.setSauceUrl(model.getSauceUrl());
+		sauce.setSauceType(types);
+		return sauce;
 	}
 }

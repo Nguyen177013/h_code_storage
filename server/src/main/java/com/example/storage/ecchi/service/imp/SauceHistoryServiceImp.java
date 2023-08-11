@@ -41,4 +41,10 @@ public class SauceHistoryServiceImp implements SauceHistoryService{
 	public TotalUpload getTotalUpload() {
 		return repository.getTotalUpload();
 	}
+
+	@Override
+	public boolean addHistory(SauceHistoryModel history) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

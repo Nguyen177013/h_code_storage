@@ -15,4 +15,6 @@ public interface SauceHistoryService {
 	List<DateModel> getYear();
 	
 	TotalUpload getTotalUpload();
+	
+	boolean addHistory(SauceHistoryModel history);
 }

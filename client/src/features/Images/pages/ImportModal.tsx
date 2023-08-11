@@ -4,11 +4,8 @@ import DisplayImages from "./DisplayModalImages";
 import { addImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
 import { fileReduce } from "../../../utils/fileReduce";
+import { ImageApi } from "../../../enums/ImageEnums";
 
-enum ImageApi {
-  UPLOAD = "upload",
-  ADD = "add"
-};
 const staticFileSize = 10485760;
 const ImportModal = ({
   setPending,
@@ -50,8 +47,8 @@ const ImportModal = ({
       blob: [...prevInput.blob, blob],
     }));
   };
-  function handleAddImage<T> (data: T, type:string){
-    addImage<T>(dispatch, data, type ,state.currentPage).then(() => {
+  function handleAddImage<T>(data: T, type: string) {
+    addImage<T>(dispatch, data, type, state.currentPage).then(() => {
       setPending(false);
       setIsOpen(false);
       setImageInput({
@@ -64,18 +61,25 @@ const ImportModal = ({
   const handleImport = async () => {
     setPending(true);
     const formData = new FormData();
-    const { blob, url, author } = imageInput;
+    const { blob, url } = imageInput;
     if (blob.length === 0 && url === "") {
       return;
     }
-    if(url !== ""){
+    if (url !== "") {
       const imageRequest: ImageResponse = {
-        id:0,
-        sauceImage:"",
-        sauceUrl: url,
-        authorName: author,
-        sauceType: [9]
-      }
+        id: null,
+        sauceImage: "",
+        sauceUrl:
+          "https://cdn.discordapp.com/attachments/752420410959855639/1133719059565903892/110173302_p1_master1200.png",
+        authorName: "",
+        sauceType: [
+          {
+            id: null,
+            sauceId: null,
+            typeId: 9,
+          },
+        ],
+      };
       handleAddImage<ImageResponse>(imageRequest, ImageApi.ADD);
       return;
     }

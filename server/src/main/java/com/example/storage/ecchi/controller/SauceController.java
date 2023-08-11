@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.service.SauceService;
+import com.example.storage.ecchi.transformation.SauceTransformer;
 
 @RestController
 @RequestMapping("api/sauce")
@@ -23,6 +24,9 @@ public class SauceController {
 
 	@Autowired
 	SauceService sauceService;
+	
+	@Autowired
+	SauceTransformer sauceTransformer;
 
 	@GetMapping("/get-all")
 	public Page<SauceModel> getSauces(@RequestParam(defaultValue = "0") Integer page, String sauceTypeId, Integer month,
@@ -30,13 +34,14 @@ public class SauceController {
 		return sauceService.getSauce(page, sauceTypeId, month, year);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/get/{id}")
 	public SauceModel getSaucesById(@PathVariable("id") int id) {
 		return sauceService.getSauceById(id);
 	}
 
 	@PostMapping("/add")
 	public void getSaucesById(@RequestBody SauceModel sauce) {
+		System.out.println("hi");
 		sauceService.addSauce(sauce);
 	}
 

@@ -52,8 +52,7 @@ public class SauceServiceImp implements SauceService {
 
 	@Override
 	public boolean addSauce(SauceModel sauceModel) {
-		System.out.println(sauceModel);
-		System.out.println("helloo");
+		
 		return true;
 	}
 

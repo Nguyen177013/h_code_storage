@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as constants from "./constants"
+import { ImageApi } from "../../enums/ImageEnums";
 
 export async function getImages(dispatch: React.Dispatch<any>, page: number = 0) {
     const req = await axios.get(`http://localhost:8080/hentaibu/api/sauce/get-all?sauceTypeId=9&page=${page}`, {
@@ -14,11 +15,13 @@ export async function getImages(dispatch: React.Dispatch<any>, page: number = 0)
     dispatch(getAllImage(res.content));
     dispatch(setTotalPage(res.totalElements));
 }
-export async function addImage<T>(dispatch: React.Dispatch<any>, data: T, type:string, currentPage:number) {
+export async function addImage<T>(dispatch: React.Dispatch<any>, data: T, type: string, currentPage: number) {
+    let contentType = 
+    type === ImageApi.ADD ? "application/json" : "multipart/form-data";
     try {
         await axios.post(`http://localhost:8080/hentaibu/api/sauce/${type}`, data, {
             headers: {
-                "Content-Type": "multipart/form-data",
+                "Content-Type": contentType,
                 Authorization: `Basic ${window.btoa(
                     "hentaibu:507c6e34b77b5916c3b791e2ff627114"
                 )}`,
@@ -31,7 +34,7 @@ export async function addImage<T>(dispatch: React.Dispatch<any>, data: T, type:s
         throw new Error(error.message);
     }
 }
-export async function deleteImage(dispatch: React.Dispatch<any>, imageId: number, currentPage : number) {
+export async function deleteImage(dispatch: React.Dispatch<any>, imageId: number, currentPage: number) {
     try {
 
         await axios.delete(
