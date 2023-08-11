@@ -24,6 +24,7 @@ import com.example.storage.ecchi.repository.SauceRepository;
 import com.example.storage.ecchi.repository.SauceTypeRepository;
 import com.example.storage.ecchi.service.SauceService;
 import com.example.storage.ecchi.transformation.SauceTransformer;
+import com.example.storage.ecchi.transformation.SauceTypeTransformer;
 
 @Service
 public class SauceServiceImp implements SauceService {
@@ -40,6 +41,9 @@ public class SauceServiceImp implements SauceService {
 	@Autowired
 	SauceHistoryRepository sauceHistoryRepository;
 
+	@Autowired
+	SauceTypeTransformer sauceTypeTransformer;
+
 	String cloudUrl = System.getenv("CLOUD_URL");
 
 	Cloudinary cloudinary = new Cloudinary(cloudUrl);
@@ -52,8 +56,21 @@ public class SauceServiceImp implements SauceService {
 
 	@Override
 	public boolean addSauce(SauceModel sauceModel) {
-		
-		return true;
+		try {
+			
+			List<SauceHistory> histories = new ArrayList<>();
+			List<SauceType> types = new ArrayList<>();
+			Sauce sauce = transformer.applySauceModel(sauceModel, histories, types);
+//			SauceHistory history = new SauceHistory();
+//			history.setDateUpload(new Date());
+//			history.setSauce(sauce);
+//			types = sauceTypeTransformer.applyListModel(sauceModel.getSauceType(), sauce);
+			return true;
+		} catch (Exception ex) {
+			System.err.println(ex);
+			return false;
+		}
+
 	}
 
 	@Override
