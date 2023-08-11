@@ -51,11 +51,14 @@ public class SauceServiceImp implements SauceService {
 	}
 
 	@Override
-	public void addSauce(SauceModel sauceModel) {
+	public boolean addSauce(SauceModel sauceModel) {
+		System.out.println("helloo");
+		return true;
 	}
 
 	@Override
-	public void editSauce(int id, SauceModel sauceModel) {
+	public boolean editSauce(int id, SauceModel sauceModel) {
+		return true;
 	}
 
 	@Override

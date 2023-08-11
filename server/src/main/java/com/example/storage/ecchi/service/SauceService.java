@@ -12,9 +12,9 @@ public interface SauceService {
 	
 	public SauceModel getSauceById(int id);
 
-	public void addSauce(SauceModel sauceModel);
+	public boolean addSauce(SauceModel sauceModel);
 
-	public void editSauce(int id, SauceModel sauceModel);
+	public boolean editSauce(int id, SauceModel sauceModel);
 
 	public boolean deleteSauce(int id);
 	
