@@ -14,9 +14,9 @@ export async function getImages(dispatch: React.Dispatch<any>, page: number = 0)
     dispatch(getAllImage(res.content));
     dispatch(setTotalPage(res.totalElements));
 }
-export async function addImage<T>(dispatch: React.Dispatch<any>, data: T, currentPage:number) {
+export async function addImage<T>(dispatch: React.Dispatch<any>, data: T, type:string, currentPage:number) {
     try {
-        await axios.post("http://localhost:8080/hentaibu/api/sauce/upload", data, {
+        await axios.post(`http://localhost:8080/hentaibu/api/sauce/${type}`, data, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Basic ${window.btoa(

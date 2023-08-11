@@ -5,6 +5,10 @@ import { addImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
 import { fileReduce } from "../../../utils/fileReduce";
 
+enum ImageApi {
+  UPLOAD = "upload",
+  ADD = "add"
+};
 const staticFileSize = 10485760;
 const ImportModal = ({
   setPending,
@@ -46,12 +50,33 @@ const ImportModal = ({
       blob: [...prevInput.blob, blob],
     }));
   };
-
+  function handleAddImage<T> (data: T, type:string){
+    addImage<T>(dispatch, data, type ,state.currentPage).then(() => {
+      setPending(false);
+      setIsOpen(false);
+      setImageInput({
+        author: "",
+        blob: [],
+        url: "",
+      });
+    });
+  }
   const handleImport = async () => {
     setPending(true);
     const formData = new FormData();
-    const { blob, url } = imageInput;
+    const { blob, url, author } = imageInput;
     if (blob.length === 0 && url === "") {
+      return;
+    }
+    if(url !== ""){
+      const imageRequest: ImageResponse = {
+        id:0,
+        sauceImage:"",
+        sauceUrl: url,
+        authorName: author,
+        sauceType: [9]
+      }
+      handleAddImage<ImageResponse>(imageRequest, ImageApi.ADD);
       return;
     }
     for (let file of blob) {
@@ -65,15 +90,7 @@ const ImportModal = ({
         formData.append(`files`, file, file.name);
       }
     }
-    addImage(dispatch, formData, state.currentPage).then(() => {
-      setPending(false);
-      setIsOpen(false);
-      setImageInput({
-        author: "",
-        blob: [],
-        url: "",
-      });
-    });
+    handleAddImage<FormData>(formData, ImageApi.UPLOAD);
   };
   return (
     <div onPaste={handlePaste}>
@@ -107,5 +124,4 @@ const ImportModal = ({
     </div>
   );
 };
-
 export default ImportModal;
