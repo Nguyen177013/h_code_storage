@@ -57,7 +57,7 @@ public class SauceServiceImp implements SauceService {
 	@Override
 	public boolean addSauce(SauceModel sauceModel) {
 		try {
-			
+
 			List<SauceHistory> histories = new ArrayList<>();
 			List<SauceType> types = new ArrayList<>();
 			Sauce sauce = transformer.applySauceModel(sauceModel, histories, types);
@@ -88,11 +88,14 @@ public class SauceServiceImp implements SauceService {
 	public boolean deleteSauce(int id) {
 		Sauce sauce = sauceRepository.findById(id).get();
 		String firstTypeId = sauce.getSauceType().get(0).getType().getName();
+		sauceRepository.deleteById(id);
 		if (firstTypeId.contains("Image")) {
+			if (sauce.getName() != "file") {
+				return true;
+			}
 			cloudinary.config.secure = true;
 			Map<?, ?> deleteParams = ObjectUtils.asMap("invalidate", true);
 			try {
-				sauceRepository.deleteById(id);
 				cloudinary.uploader().destroy(sauce.getSauceImage(), deleteParams);
 			} catch (IOException e) {
 				System.err.println("Error: " + e.getMessage());

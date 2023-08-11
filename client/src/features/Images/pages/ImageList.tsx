@@ -7,7 +7,7 @@ const ImageList = ({ imageData }: { imageData: ImageResponse[] }) => {
       <div style={{ marginTop: 32 }}>
         <Row gutter={[8, 8]}>
           {imageData.map((image) => (
-               <DisplayImages image={image} key={image.sauceUrl}/> 
+               <DisplayImages image={image} key={image.id}/> 
           ))}
         </Row>
       </div>

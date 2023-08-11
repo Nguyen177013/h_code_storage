@@ -68,9 +68,9 @@ const ImportModal = ({
     if (url !== "") {
       const imageRequest: ImageResponse = {
         id: null,
+        name:"image",
         sauceImage: "",
-        sauceUrl:
-          "https://cdn.discordapp.com/attachments/752420410959855639/1133719059565903892/110173302_p1_master1200.png",
+        sauceUrl: url,
         authorName: "",
         sauceType: [
           {
