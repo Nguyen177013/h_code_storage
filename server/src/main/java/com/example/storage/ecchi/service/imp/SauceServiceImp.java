@@ -61,10 +61,16 @@ public class SauceServiceImp implements SauceService {
 			List<SauceHistory> histories = new ArrayList<>();
 			List<SauceType> types = new ArrayList<>();
 			Sauce sauce = transformer.applySauceModel(sauceModel, histories, types);
-//			SauceHistory history = new SauceHistory();
-//			history.setDateUpload(new Date());
-//			history.setSauce(sauce);
-//			types = sauceTypeTransformer.applyListModel(sauceModel.getSauceType(), sauce);
+			SauceHistory history = new SauceHistory();
+			history.setDateUpload(new Date());
+			history.setSauce(sauce);
+			histories.add(history);
+			types = sauceTypeTransformer.applyListModel(sauceModel.getSauceType(), sauce);
+			System.out.println("Start");
+			sauceRepository.save(sauce);
+			sauceHistoryRepository.save(history);
+			sauceTypeRepository.saveAll(types);
+			System.err.println("End");
 			return true;
 		} catch (Exception ex) {
 			System.err.println(ex);

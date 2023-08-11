@@ -36,8 +36,8 @@ public class SauceTransformer {
 		List<SauceTypeModel> sauceTypes = entity.getSauceType().stream().map(sauceTypeTransformer::apply).toList();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
-		if(!(entity.getAuthor() == null)) {
-			model.setAuthorId(entity.getAuthor().getId());			
+		if (!(entity.getAuthor() == null)) {
+			model.setAuthorId(entity.getAuthor().getId());
 			model.setAuthorName(entity.getAuthor().getName());
 		}
 		model.setSauceImage(entity.getSauceImage());
@@ -45,9 +45,12 @@ public class SauceTransformer {
 		model.setSauceType(sauceTypes);
 		return model;
 	}
+
 	public Sauce applySauceModel(SauceModel model, List<SauceHistory> historys, List<SauceType> types) {
 		Sauce sauce = new Sauce();
-		sauce.setAuthor(authorRepository.findById(model.getAuthorId()).get());
+		if (model.getAuthorId() != null) {
+			sauce.setAuthor(authorRepository.findById(model.getAuthorId()).get());
+		}
 		sauce.setName(model.getName());
 		sauce.setSauceHistory(historys);
 		sauce.setSauceImage(model.getSauceImage());
