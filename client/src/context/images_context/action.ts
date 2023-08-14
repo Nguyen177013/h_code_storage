@@ -1,15 +1,11 @@
 import axios from "axios";
 import * as constants from "./constants"
 import { ImageApi } from "../../enums/ImageEnums";
-
+import { base_url } from "..";
+import { headers } from "../../api/headerCommon";
 export async function getImages(dispatch: React.Dispatch<any>, page: number = 0) {
-    const req = await axios.get(`http://localhost:8080/hentaibu/api/sauce/get-all?sauceTypeId=9&page=${page}`, {
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Basic ${window.btoa(
-                "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-            )}`,
-        },
+    const req = await axios.get(`${base_url}sauce/get-all?sauceTypeId=9&page=${page}`, {
+        headers: headers.jsonApplication
     });
     const res: PageType<ImageResponse> = await req.data;
     dispatch(getAllImage(res.content));
@@ -17,15 +13,10 @@ export async function getImages(dispatch: React.Dispatch<any>, page: number = 0)
 }
 export async function addImage<T>(dispatch: React.Dispatch<any>, data: T, type: string, currentPage: number) {
     let contentType = 
-    type === ImageApi.ADD ? "application/json" : "multipart/form-data";
+    type === ImageApi.ADD ? headers.jsonApplication : headers.multiplePathFile;
     try {
-        await axios.post(`http://localhost:8080/hentaibu/api/sauce/${type}`, data, {
-            headers: {
-                "Content-Type": contentType,
-                Authorization: `Basic ${window.btoa(
-                    "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-                )}`,
-            },
+        await axios.post(`${base_url}sauce/${type}`, data, {
+            headers: contentType
         })
         getImages(dispatch, currentPage);
     }
@@ -38,14 +29,9 @@ export async function deleteImage(dispatch: React.Dispatch<any>, imageId: number
     try {
 
         await axios.delete(
-            `http://localhost:8080/hentaibu/api/sauce/delete/${imageId}`,
+            `${base_url}sauce/delete/${imageId}`,
             {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Basic ${window.btoa(
-                        "hentaibu:507c6e34b77b5916c3b791e2ff627114"
-                    )}`,
-                },
+                headers: headers.jsonApplication
             }
         );
         dispatch(removeImage(imageId));
