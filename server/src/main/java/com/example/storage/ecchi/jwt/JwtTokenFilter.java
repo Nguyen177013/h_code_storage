@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwkTokenUtil jwtUtil;
+	private JwtTokenUtil jwtUtil;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

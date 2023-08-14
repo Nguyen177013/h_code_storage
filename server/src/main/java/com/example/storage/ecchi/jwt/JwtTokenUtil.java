@@ -19,8 +19,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 // Base on https://github.com/codejava-official/spring-jwt-authentication/blob/main/src/main/java/net/codejava/jwt/JwtTokenUtil.java
 
 @Component
-public class JwkTokenUtil {
-	private static final Logger LOGGER = LoggerFactory.getLogger(JwkTokenUtil.class);
+public class JwtTokenUtil {
+	private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 
 	private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000;
 
@@ -28,7 +28,7 @@ public class JwkTokenUtil {
 	private String SECRET_KEY;
 
 	public String generareAccessToken(User user) {
-		return Jwts.builder().setSubject(String.format("%s,%s", user.getId(), user.getUserName())).setIssuer("HStorage")
+		return Jwts.builder().setSubject(String.format("%s,%s", user.getId(), user.getUserEmail())).setIssuer("HStorage")
 				.setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
 				.signWith(SignatureAlgorithm.HS512, SECRET_KEY).compact();
 	}
