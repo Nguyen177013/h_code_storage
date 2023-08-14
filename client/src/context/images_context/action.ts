@@ -12,8 +12,7 @@ export async function getImages(dispatch: React.Dispatch<any>, page: number = 0)
     dispatch(setTotalPage(res.totalElements));
 }
 export async function addImage<T>(dispatch: React.Dispatch<any>, data: T, type: string, currentPage: number) {
-    let contentType = 
-    type === ImageApi.ADD ? headers.jsonApplication : headers.multiplePathFile;
+    let contentType = (type === ImageApi.ADD) ? headers.jsonApplication : headers.multiplePathFile;
     try {
         await axios.post(`${base_url}sauce/${type}`, data, {
             headers: contentType

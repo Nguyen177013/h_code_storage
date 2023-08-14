@@ -6,7 +6,7 @@ export const headers = {
         "Authorization": `Basic ${window.btoa(base_auth)}`
     },
     multiplePathFile:{
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         "Authorization": `Basic ${window.btoa(base_auth)}`
     }
 }
