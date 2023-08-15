@@ -2,10 +2,9 @@ package com.example.storage.ecchi.jwt;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import com.example.storage.ecchi.entity.User;
 
@@ -20,8 +19,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtTokenUtil {
-	private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
-
 	private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000;
 
 	@Value("this is secret key")
@@ -34,19 +31,24 @@ public class JwtTokenUtil {
 	}
 
 	public boolean validateAccessToken(String token) {
+		if(ObjectUtils.isEmpty(token)) {
+			return false;
+		}
 		try {
 			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
 			return true;
 		} catch (ExpiredJwtException ex) {
-			LOGGER.error("JWT expired", ex.getMessage());
+			System.err.println("JWT expired: "+ ex.getMessage());
 		} catch (IllegalArgumentException ex) {
-			LOGGER.error("Token is null, empty or only whitespace", ex.getMessage());
+			System.err.println("Token is null, empty or only whitespace: "+ ex.getMessage());
 		} catch (MalformedJwtException ex) {
-			LOGGER.error("JWT is invalid", ex);
+			System.err.println("JWT is invalid: "+ ex);
 		} catch (UnsupportedJwtException ex) {
-			LOGGER.error("JWT is not supported", ex);
+			System.err.println("JWT is not supported: "+ ex);
 		} catch (SignatureException ex) {
-			LOGGER.error("Signature validation failed");
+			System.err.println("Signature validation failed");
+		} catch (Exception ex) {
+			System.out.println(ex);
 		}
 		return false;
 	}

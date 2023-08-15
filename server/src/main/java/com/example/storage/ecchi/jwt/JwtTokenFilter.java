@@ -26,6 +26,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		if (hasAuthorizationBearer(request)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		String token = getAccessToken(request);
+
+		if (!jwtUtil.validateAccessToken(token)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+
+		setAuthenticationContext(token, request);
+		filterChain.doFilter(request, response);
 	}
 
 	private boolean hasAuthorizationBearer(HttpServletRequest request) {
@@ -38,6 +51,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 	private String getAccessToken(HttpServletRequest request) {
 		String header = request.getHeader("Authorization");
+		if (header == null) {
+			return "";
+		}
 		String token = header.split(" ")[1].trim();
 		return token;
 	}
@@ -58,7 +74,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 				null);
 		;
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-		
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 }
