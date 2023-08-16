@@ -42,6 +42,7 @@ public class ApplicationSecurity {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeHttpRequests((authorize) -> {
 			authorize.requestMatchers("/api/auth/login").permitAll()
+			.requestMatchers("/api/sauce/get-all").permitAll()
 			.anyRequest().authenticated();
 		});
 
