@@ -23,21 +23,22 @@ public class AuthorRepositoryTest {
 	void setUp() {
 		Author author = new Author();
 		author.setId(1);
-		author.setName("Kinz");
+		author.setName("Luden");
 		author.setSauces(new ArrayList<>());
 		
 		Author author2 = new Author();
-		author.setId(2);
-		author.setName("Kinzz");
-		author.setSauces(new ArrayList<>());
-		authorRepository.save(author2);
+		author2.setId(2);
+		author2.setName("177013");
+		author2.setSauces(new ArrayList<>());
+		
 		authorRepository.save(author);
+		authorRepository.save(author2);
 	}
 	
 	@Test
 	void testGetAllAuthor() {
 		List<Author> authors = authorRepository.getAuthor();
-		System.out.println(authors.size());
-		assertEquals(1, authors.size());
+		assertEquals(2, authors.size());
+		assertEquals("Luden", authors.get(0).getName());
 	}
 }
