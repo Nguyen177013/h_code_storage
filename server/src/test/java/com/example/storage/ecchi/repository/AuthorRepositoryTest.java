@@ -1,8 +1,8 @@
 package com.example.storage.ecchi.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,18 +19,25 @@ public class AuthorRepositoryTest {
 	@Autowired
 	private AuthorRepository authorRepository;
 	
-//	@BeforeEach
-//	void setUp() {
-//		Author author = new Author();
-//		author.setId(1);
-//		author.setName("Kinz");
-//		author.setSauces(anyList());
-//		authorRepository.save(author);
-//	}
-//	
+	@BeforeEach
+	void setUp() {
+		Author author = new Author();
+		author.setId(1);
+		author.setName("Kinz");
+		author.setSauces(new ArrayList<>());
+		
+		Author author2 = new Author();
+		author.setId(2);
+		author.setName("Kinzz");
+		author.setSauces(new ArrayList<>());
+		authorRepository.save(author2);
+		authorRepository.save(author);
+	}
+	
 	@Test
 	void testGetAllAuthor() {
-//		List<Author> authors = authorRepository.getAuthor();
-		assertEquals(1, 1);
+		List<Author> authors = authorRepository.getAuthor();
+		System.out.println(authors.size());
+		assertEquals(1, authors.size());
 	}
 }
