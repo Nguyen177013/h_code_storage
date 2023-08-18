@@ -9,6 +9,6 @@ import com.example.storage.ecchi.entity.Type;
 
 @Repository
 public interface SauceTypeRepository extends JpaRepository<SauceType, Integer> {
-	@Query("SELECT type FROM Type type WHERE type.id = 9")
+	@Query("SELECT type FROM Type type WHERE type.name = 'Image'")
 	Type getImageType();
 }
