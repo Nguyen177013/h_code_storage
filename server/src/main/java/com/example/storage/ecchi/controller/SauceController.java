@@ -40,8 +40,7 @@ public class SauceController {
 	}
 
 	@PostMapping("/add")
-	public void getSaucesById(@RequestBody SauceModel sauce) {
-		System.out.println("hi");
+	public void addSauces(@RequestBody SauceModel sauce) {
 		sauceService.addSauce(sauce);
 	}
 
@@ -55,7 +54,7 @@ public class SauceController {
 		if (sauceService.deleteSauce(id)) {
 			return "Sauce has been deleted";
 		}
-		return "something wrong with the server";
+		return "Something wrong with the server";
 	}
 
 	@PostMapping("/upload")
