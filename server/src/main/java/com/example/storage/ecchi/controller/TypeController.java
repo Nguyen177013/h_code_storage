@@ -16,11 +16,7 @@ public class TypeController {
 	
 	@Autowired
 	TypeService typeService;
-	
-	@GetMapping("")
-	public String gretting() {
-		return "Hello world";
-	}
+
 	@GetMapping("/get-all")
 	public List<TypeModel> getTyes() {
 		return typeService.listTypes();
