@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.example.storage.ecchi.jwt.JwtTokenFilter;
 
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @Configuration
 public class ApplicationSecurity {
 	@Autowired
@@ -42,7 +42,7 @@ public class ApplicationSecurity {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeHttpRequests((authorize) -> {
 			authorize.requestMatchers("/api/auth/login").permitAll()
-			.requestMatchers("/api/sauce/get-all").permitAll()
+			.requestMatchers("/api/auth/register").permitAll()
 			.anyRequest().authenticated();
 		});
 

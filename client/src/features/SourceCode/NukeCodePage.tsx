@@ -1,8 +1,6 @@
 const NukeCodePage = () => {
-
     return ( 
         <>
-        <code>This is code page</code>
         </>
      );
 }

@@ -1,27 +1,28 @@
 package com.example.storage.ecchi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.storage.ecchi.entity.User;
-import com.example.storage.ecchi.jwt.JwtTokenUtil;
+import com.example.storage.ecchi.model.UserModel;
+import com.example.storage.ecchi.service.UserService;
 
 @RestController
 @RequestMapping("api/auth/")
 public class AuthenticationController {
-	
-	@Autowired
-	JwtTokenUtil jwtUtil;
 
-	@GetMapping("login")
-	String greeting() {
-		User user = new User();
-		user.setId(1);
-		user.setUserName("Phan Nguyen");
-		user.setUserEmail("phannguyendoremon@gmail.com");
-		user.setUserPassword("177013");
-		return "Xin Chao Cac Ban";
+	@Autowired
+	UserService userService;
+	
+	@PostMapping("login")
+	String login (@RequestBody UserModel user) {
+		return userService.userLogin(user);
+	}
+	
+	@PostMapping("register")
+	String register (@RequestBody UserModel user) {
+		return userService.userRegister(user);
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.storage.ecchi.entity.User;
 
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,27 +27,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		if (hasAuthorizationBearer(request)) {
-			filterChain.doFilter(request, response);
-			return;
-		}
 		String token = getAccessToken(request);
-
 		if (!jwtUtil.validateAccessToken(token)) {
 			filterChain.doFilter(request, response);
 			return;
 		}
-
 		setAuthenticationContext(token, request);
 		filterChain.doFilter(request, response);
-	}
-
-	private boolean hasAuthorizationBearer(HttpServletRequest request) {
-		String header = request.getHeader("Authorization");
-		if (ObjectUtils.isEmpty(header) || !header.startsWith("Bearer")) {
-			return false;
-		}
-		return true;
 	}
 
 	private String getAccessToken(HttpServletRequest request) {
@@ -60,16 +47,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 	private User getUserDetail(String token) {
 		User userDetails = new User();
-		String[] jwtSubject = jwtUtil.getSubjet(token).split(",");
-		userDetails.setId(Integer.parseInt(jwtSubject[0]));
-		userDetails.setUserName(jwtSubject[1]);
-
+		Claims jwtBody = jwtUtil.parseClaims(token);
+		userDetails.setId(Integer.parseInt(jwtBody.get("id").toString()));
+		userDetails.setUserName(jwtBody.get("userName").toString());
 		return userDetails;
 	}
 
 	private void setAuthenticationContext(String token, HttpServletRequest request) {
 		User userDetails = getUserDetail(token);
-
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
 				null);
 		;

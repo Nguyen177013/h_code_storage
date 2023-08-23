@@ -25,39 +25,41 @@ public class JwtTokenUtil {
 	private String SECRET_KEY;
 
 	public String generareAccessToken(User user) {
-		return Jwts.builder().setSubject(String.format("%s,%s", user.getId(), user.getUserEmail())).setIssuer("HStorage")
-				.setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
-				.signWith(SignatureAlgorithm.HS512, SECRET_KEY).compact();
+		return Jwts.builder().setIssuer("HStorage")
+		.setSubject("token")
+		.claim("id", user.getId())
+		.claim("userName", user.getUserName())
+		.setIssuedAt(new Date())
+		.setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
+		.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+		.compact();
 	}
 
 	public boolean validateAccessToken(String token) {
-		if(ObjectUtils.isEmpty(token)) {
+		if (ObjectUtils.isEmpty(token)) {
 			return false;
 		}
 		try {
 			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+			System.err.println("hehehe");
 			return true;
 		} catch (ExpiredJwtException ex) {
-			System.err.println("JWT expired: "+ ex.getMessage());
+			System.err.println("JWT expired: " + ex.getMessage());
 		} catch (IllegalArgumentException ex) {
-			System.err.println("Token is null, empty or only whitespace: "+ ex.getMessage());
+			System.err.println("Token is null, empty or only whitespace: " + ex.getMessage());
 		} catch (MalformedJwtException ex) {
-			System.err.println("JWT is invalid: "+ ex);
+			System.err.println("JWT is invalid: " + ex);
 		} catch (UnsupportedJwtException ex) {
-			System.err.println("JWT is not supported: "+ ex);
+			System.err.println("JWT is not supported: " + ex);
 		} catch (SignatureException ex) {
 			System.err.println("Signature validation failed");
 		} catch (Exception ex) {
-			System.out.println(ex);
+			System.out.println(ex.getMessage());
 		}
 		return false;
 	}
-
-	public String getSubjet(String token) {
-		return parseClaims(token).getSubject();
-	}
-
-	private Claims parseClaims(String token) {
+	
+	public Claims parseClaims(String token) {
 		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
 	}
 }

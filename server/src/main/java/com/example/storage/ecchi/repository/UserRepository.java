@@ -8,6 +8,9 @@ import com.example.storage.ecchi.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-	@Query("SELECT user FROM User user WHERE user.userEmail = :email")
-	User findByEmail(String email);
+	
+	@Query("SELECT account "
+			+ "FROM User account "
+			+ "WHERE account.userEmail = CAST(:email AS STRING) OR account.userName = CAST(:userName AS STRING)")
+	User findUser(String email, String userName);
 }
