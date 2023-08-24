@@ -66,11 +66,9 @@ public class SauceServiceImp implements SauceService {
 			history.setSauce(sauce);
 			histories.add(history);
 			types = sauceTypeTransformer.applyListModel(sauceModel.getSauceType(), sauce);
-			System.out.println("Start");
 			sauceRepository.save(sauce);
 			sauceHistoryRepository.save(history);
 			sauceTypeRepository.saveAll(types);
-			System.err.println("End");
 			return true;
 		} catch (Exception ex) {
 			System.err.println(ex);

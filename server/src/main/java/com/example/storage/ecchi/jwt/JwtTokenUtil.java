@@ -2,7 +2,6 @@ package com.example.storage.ecchi.jwt;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -10,6 +9,7 @@ import com.example.storage.ecchi.entity.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,29 +19,28 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtTokenUtil {
-	private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000;
+	private static final long EXPIRE_DURATION = 30 * 1000;
 
-	@Value("this is secret key")
-	private String SECRET_KEY;
+	private String accessToken = System.getenv("ACCESS_TOKEN_KEY");
 
-	public String generareAccessToken(User user) {
-		return Jwts.builder().setIssuer("HStorage")
-		.setSubject("token")
-		.claim("id", user.getId())
-		.claim("userName", user.getUserName())
-		.setIssuedAt(new Date())
-		.setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
-		.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-		.compact();
+	public String generateToken(User user, String tokenKey) {
+		JwtBuilder builder = Jwts.builder().setIssuer("HStorage").setSubject("token").claim("id", user.getId())
+				.claim("userName", user.getUserName()).setIssuedAt(new Date())
+				.signWith(SignatureAlgorithm.HS512, tokenKey);
+		if (tokenKey == accessToken) {
+			System.out.println("Access Token Ne!");
+			builder.setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION));
+		}
+		return builder.compact();
 	}
 
-	public boolean validateAccessToken(String token) {
+	public boolean validateAccessToken(String token, String tokenCode) {
 		if (ObjectUtils.isEmpty(token)) {
 			return false;
 		}
+		String tokenType = (tokenCode == null ? accessToken : tokenCode);
 		try {
-			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-			System.err.println("hehehe");
+			Jwts.parser().setSigningKey(tokenType).parseClaimsJws(token);
 			return true;
 		} catch (ExpiredJwtException ex) {
 			System.err.println("JWT expired: " + ex.getMessage());
@@ -58,8 +57,8 @@ public class JwtTokenUtil {
 		}
 		return false;
 	}
-	
+
 	public Claims parseClaims(String token) {
-		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+		return Jwts.parser().setSigningKey(accessToken).parseClaimsJws(token).getBody();
 	}
 }

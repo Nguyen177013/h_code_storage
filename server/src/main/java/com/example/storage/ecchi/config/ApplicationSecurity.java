@@ -43,6 +43,7 @@ public class ApplicationSecurity {
 		http.authorizeHttpRequests((authorize) -> {
 			authorize.requestMatchers("/api/auth/login").permitAll()
 			.requestMatchers("/api/auth/register").permitAll()
+			.requestMatchers("/api/auth/refresh-token").permitAll()
 			.anyRequest().authenticated();
 		});
 

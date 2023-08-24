@@ -7,7 +7,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.storage.ecchi.entity.User;
@@ -28,7 +27,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String token = getAccessToken(request);
-		if (!jwtUtil.validateAccessToken(token)) {
+		if (!jwtUtil.validateAccessToken(token, null)) {
 			filterChain.doFilter(request, response);
 			return;
 		}
