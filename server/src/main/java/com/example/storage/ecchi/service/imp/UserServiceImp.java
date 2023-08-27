@@ -40,7 +40,7 @@ public class UserServiceImp implements UserService {
 	@Override
 	public AuthResponse userLogin(UserModel user) {
 		AuthResponse authResponse = new AuthResponse();
-		User userLogin = userRepositiory.findUser(user.getEmail(), user.getUserName());
+		User userLogin = userRepositiory.findUser(user.getUserName());
 		boolean checkUserPassword = passwordEncoder.matches(user.getPassword(), userLogin.getUserPassword());
 		if (checkUserPassword) {
 			String accessToken = jwtUtils.generateToken(userLogin, accessTokenCode);
@@ -60,7 +60,7 @@ public class UserServiceImp implements UserService {
 		String encriptPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encriptPassword);
 		User newUser = userTransformer.modelToEntity(user);
-		if (Objects.isNull(userRepositiory.findUser(newUser.getUserEmail(), newUser.getUserName()))) {
+		if (Objects.isNull(userRepositiory.findUser(newUser.getUserName()))) {
 			newUser = userRepositiory.save(newUser);
 			String accessToken = jwtUtils.generateToken(newUser, accessTokenCode);
 			String refreshToken = jwtUtils.generateToken(newUser, refreshTokenCode);
@@ -77,15 +77,16 @@ public class UserServiceImp implements UserService {
 	public AuthResponse refreshToken(HashMap<String, String> refreshToken) {
 		AuthResponse authResponse = new AuthResponse();
 		String token = refreshToken.get("refreshToken");
-		if(Objects.isNull(token)) {
+		if (Objects.isNull(token)) {
 			authResponse.setMessage("Refresh token is empty");
 			return authResponse;
 		}
-		if(!jwtUtils.validateAccessToken(token, refreshTokenCode)) {
+		if (!jwtUtils.validateAccessToken(token, refreshTokenCode)) {
 			authResponse.setMessage("Refresh token is invalid");
 			return authResponse;
 		}
-		Claims claims = Jwts.parser().setSigningKey(refreshTokenCode).parseClaimsJws(token).getBody();		// wtf I am doing :D ?
+		Claims claims = Jwts.parser().setSigningKey(refreshTokenCode).parseClaimsJws(token).getBody(); // wtf I am doing
+																										// :D ?
 		User user = new User();
 		user.setId(Integer.parseInt(claims.get("id").toString()));
 		user.setUserName(claims.get("userName").toString());
