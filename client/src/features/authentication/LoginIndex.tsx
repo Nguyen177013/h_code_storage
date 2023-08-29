@@ -1,19 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
-import { base_url } from "../../context";
-import { headers } from "../../api/headerCommon";
+import useAuthContext from "../../hooks/userAuth";
+import { login } from "../../context/auth_context/actions";
 
-type inputType = {
-  userName: string;
-  password: string;
-};
-type responseType = {
-  accessToken: string;
-  refreshToken: string;
-  message: string;
-};
 const LoginPage = () => {
-  const [input, setInput] = useState<inputType>({
+  const { dispatch, state } = useAuthContext();
+  const [form, setInput] = useState<LoginType>({
     password: "",
     userName: "",
   });
@@ -26,19 +17,7 @@ const LoginPage = () => {
     }));
   }
   function handleSubmit() {
-    console.log("hi");
-
-    axios
-      .post(`${base_url}auth/login`, input, {
-        headers: headers.jsonApplication,
-      })
-      .then((res) => {
-        const data: responseType = res.data;
-        if (data.accessToken && data.refreshToken) {
-          return localStorage.setItem("token", data.accessToken);
-        }
-        alert(data.message);
-      });
+    login(dispatch,form);
   }
   return (
     <>

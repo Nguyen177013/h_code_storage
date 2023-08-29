@@ -9,7 +9,7 @@ export const initialState = {
     total: {
         totalUpload: 0
     }
-} as { years: datetimeSelectionType[], total: TotalUpload, sauceHistory:SauceHistoryProp};
+} as dashboardReducerType;
 export function dashboardReducer(state: dashboardReducerType, action: dashboardActionType<SauceHistoryProp & TotalUpload &  datetimeSelectionType[]>) {
     switch (action.type) {
         case constants.GET_TOAl:

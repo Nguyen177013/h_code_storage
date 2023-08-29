@@ -4,7 +4,7 @@ import { headers } from "../../api/headerCommon";
 
 export async function getYear(dispatch: React.Dispatch<any>) {
     const closesYear = await axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-year", {
-        headers: headers
+        headers: headers.jsonApplication
     });
     const date: [{ year: string }] = await closesYear.data;
     const years = date.map(year => ({
@@ -15,14 +15,14 @@ export async function getYear(dispatch: React.Dispatch<any>) {
 }
 export async function getTotal(dispatch: React.Dispatch<any>) {
     const req = await axios.get("http://localhost:8080/hentaibu/api/sauce-history/get-total-upload", {
-        headers: headers
+        headers: headers.jsonApplication
     });
     const res: TotalUpload = await req.data;
     return dispatch(setTotal(res));
 }
 export async function getDashBoard(year: string, option: string, dispatch: React.Dispatch<any>) {
     const req = await axios.get(`http://localhost:8080/hentaibu/api/sauce-history/get-history?year=${year}&dateUpload=${option}`, {
-        headers: headers
+        headers: headers.jsonApplication
     });
     const res : SauceHistory[] = req.data;
     const total = res.map(data => data.total);
