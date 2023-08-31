@@ -11,8 +11,7 @@ type Props = {
 
 export const AuthContex = createContext<ContextType | null>(null);
 const AuthProvider = ({children} : Props) =>{
-    const [state, dispatch] = useReducer(authenticateReducer, initialState);
-    return (
+    const [state, dispatch] = useReducer(authenticateReducer, initialState);    return (
         <AuthContex.Provider value={{state, dispatch}}>
             {children}
         </AuthContex.Provider>

@@ -19,7 +19,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtTokenUtil {
-	private static final long EXPIRE_DURATION = 30 * 1000;
+	private static final long EXPIRE_DURATION = 7 * 60 * 1000;
 
 	private String accessToken = System.getenv("ACCESS_TOKEN_KEY");
 

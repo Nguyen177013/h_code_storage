@@ -2,11 +2,15 @@ import { CloseCircleTwoTone } from "@ant-design/icons";
 import { Col, Image, Popconfirm } from "antd";
 import { deleteImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
+import useAuthContext from "../../../hooks/userAuth";
 
 const DisplayImages = ({ image }: { image: ImageResponse }) => {
   const {dispatch, state} = useImageContext();
+  const {state : tokenState} = useAuthContext();
   const handleDeleteImage = async () => {
-    await deleteImage(dispatch, image.id, state.currentPage);
+    if(image.id){
+      await deleteImage(dispatch, image.id, state.currentPage, tokenState.accessToken);
+    }
   };
   return (
     <Col key={image.sauceUrl} span={4}>

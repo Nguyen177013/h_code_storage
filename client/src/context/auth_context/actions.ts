@@ -4,14 +4,15 @@ import { headers } from "../../api/headerCommon";
 import { base_url } from "../../context";
 
 export async function login(dispatch: React.Dispatch<any>, form: LoginType) {
+    
     const res = await axios.post(`${base_url}auth/login`, form, {
         headers: headers.jsonApplication,
     });
     const tokens : responseType = res.data;
     if(tokens.accessToken && tokens.refreshToken){
-            localStorage.setItem("accessToken", tokens.accessToken);
-            document.cookie = `refreshToken=${tokens.refreshToken}; secure; path=/`;
-            dispatch(setLogin(tokens));
+        localStorage.setItem("accessToken", tokens.accessToken);
+        document.cookie = `refreshToken=${tokens.refreshToken}; secure; path=/`;
+        dispatch(setLogin(tokens));
     }
 }
 

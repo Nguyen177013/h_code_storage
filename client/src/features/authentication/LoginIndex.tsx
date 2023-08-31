@@ -3,7 +3,7 @@ import useAuthContext from "../../hooks/userAuth";
 import { login } from "../../context/auth_context/actions";
 
 const LoginPage = () => {
-  const { dispatch, state } = useAuthContext();
+  const { dispatch } = useAuthContext();
   const [form, setInput] = useState<LoginType>({
     password: "",
     userName: "",
@@ -16,25 +16,28 @@ const LoginPage = () => {
       [name]: value,
     }));
   }
-  function handleSubmit() {
-    login(dispatch,form);
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    await login(dispatch, form);
   }
   return (
     <>
       <h1>Login page</h1>
-      <input
-        type="text"
-        placeholder="user name..."
-        name="userName"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        placeholder="password..."
-        name="password"
-        onChange={handleChange}
-      />
-      <button onClick={() => handleSubmit()}>login</button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="user name..."
+          name="userName"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="password..."
+          name="password"
+          onChange={handleChange}
+        />
+        <button>login</button>
+      </form>
     </>
   );
 };

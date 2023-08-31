@@ -5,6 +5,7 @@ import { addImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
 import { fileReduce } from "../../../utils/fileReduce";
 import { ImageApi } from "../../../enums/ImageEnums";
+import useAuthContext from "../../../hooks/userAuth";
 
 const staticFileSize = 10485760;
 const ImportModal = ({
@@ -14,6 +15,7 @@ const ImportModal = ({
   setPending: (status: boolean) => void;
   setIsOpen: (status: boolean) => void;
 }) => {
+  const {state : tokenState} = useAuthContext();
   const { dispatch, state } = useImageContext();
   const [imageInput, setImageInput] = useState<imageInput>({
     author: "",
@@ -48,7 +50,7 @@ const ImportModal = ({
     }));
   };
   function handleAddImage<T>(data: T, type: string) {
-    addImage<T>(dispatch, data, type, state.currentPage).then(() => {
+    addImage<T>(dispatch, data, type, state.currentPage, tokenState.accessToken).then(() => {
       setPending(false);
       setIsOpen(false);
       setImageInput({

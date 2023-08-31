@@ -5,8 +5,10 @@ import HomePage from "./pages/HomePage";
 import ImagePage from "./features/Images/ImagePage";
 import NukeCodePage from "./features/SourceCode/NukeCodePage";
 import LoginPage from "./features/authentication/LoginIndex";
+import useAuthContext from "./hooks/userAuth";
 function App() {
-  const token = localStorage.getItem("token");
+  const {state} = useAuthContext();
+  const token = state.accessToken;
   return (
     <BrowserRouter>
       <Routes>

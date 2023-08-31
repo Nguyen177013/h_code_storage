@@ -8,15 +8,18 @@ import {
   getYear,
   getTotal,
 } from "../context/dashboard_context/action";
+import useAuthContext from "../hooks/userAuth";
 const HomePage = () => {
+
+  const {state : tokenState} = useAuthContext();
   const { state, dispatch } = useDashboardContext();
   const [date, setDate] = useState<dateOptionType>({ option: "", year: "" });
   useEffect(() => {
-    getYear(dispatch);
-    getTotal(dispatch);
+    getYear(dispatch, tokenState.accessToken);
+    getTotal(dispatch, tokenState.accessToken);
   }, []);
   useEffect(() => {
-    getDashBoard(date.year, date.option, dispatch);
+    getDashBoard(date.year, date.option, dispatch, tokenState.accessToken);
   }, [date]);
   const handleChangeYear = (value: string) => {
     setDate((preDate) => ({
