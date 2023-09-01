@@ -26,8 +26,8 @@ export async function getNewAccessToken(dispatch: React.Dispatch<any>, refreshTo
     }
 }
 
-export async function logout(dispatch: React.Dispatch<any>) {
-
+export function logout(dispatch: React.Dispatch<any>) {
+    dispatch(removeToken());
 }
 
 export async function register(dispatch: React.Dispatch<any>) {

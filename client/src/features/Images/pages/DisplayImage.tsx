@@ -2,7 +2,7 @@ import { CloseCircleTwoTone } from "@ant-design/icons";
 import { Col, Image, Popconfirm } from "antd";
 import { deleteImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
-import useAuthContext from "../../../hooks/userAuth";
+import useAuthContext from "../../../hooks/useAuth";
 
 const DisplayImages = ({ image }: { image: ImageResponse }) => {
   const {dispatch, state} = useImageContext();

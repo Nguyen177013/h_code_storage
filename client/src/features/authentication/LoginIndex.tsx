@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAuthContext from "../../hooks/userAuth";
+import useAuthContext from "../../hooks/useAuth";
 import { login } from "../../context/auth_context/actions";
 
 const LoginPage = () => {

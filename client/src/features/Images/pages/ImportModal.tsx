@@ -5,7 +5,7 @@ import { addImage } from "../../../context/images_context/action";
 import useImageContext from "../../../hooks/useImage";
 import { fileReduce } from "../../../utils/fileReduce";
 import { ImageApi } from "../../../enums/ImageEnums";
-import useAuthContext from "../../../hooks/userAuth";
+import useAuthContext from "../../../hooks/useAuth";
 
 const staticFileSize = 10485760;
 const ImportModal = ({

@@ -8,7 +8,7 @@ import {
   getYear,
   getTotal,
 } from "../context/dashboard_context/action";
-import useAuthContext from "../hooks/userAuth";
+import useAuthContext from "../hooks/useAuth";
 const HomePage = () => {
 
   const {state : tokenState} = useAuthContext();

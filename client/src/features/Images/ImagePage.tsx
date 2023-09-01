@@ -4,7 +4,7 @@ import ImportModal from "./pages/ImportModal";
 import ImageList from "./pages/ImageList";
 import { getImages, setCurrentPage } from "../../context/images_context/action";
 import useImageContext from "../../hooks/useImage";
-import useAuthContext from "../../hooks/userAuth";
+import useAuthContext from "../../hooks/useAuth";
 const ImagePage = () => {
   const { state: tokenState } = useAuthContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);

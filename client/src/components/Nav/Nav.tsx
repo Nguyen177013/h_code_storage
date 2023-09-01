@@ -8,8 +8,11 @@ import {
 import { useState } from "react";
 const { Sider } = Layout;
 import { useNavigate } from "react-router-dom";
+import useAuthContext from "../../hooks/useAuth";
+import { logout } from "../../context/auth_context/actions";
 const Nav = () => {
   const navigate = useNavigate();
+  const {dispatch} = useAuthContext();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const toggle = () => {
     setCollapsed((preCollapsed) => !preCollapsed);
@@ -40,11 +43,12 @@ const Nav = () => {
       },
     },
     {
-      label: "Login",
+      label: "Logout",
       icon: <LoginOutlined />,
-      key: "login",
+      key: "logout",
       onClick: () => {
-        navigate("/login");
+        console.log("hello");
+        logout(dispatch);
       },
     },
   ];
