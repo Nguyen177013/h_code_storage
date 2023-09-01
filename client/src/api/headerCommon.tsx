@@ -1,11 +1,14 @@
 // import { base_auth } from "../context";
-export const headers = (accessToken : string) => ({
+export const headers = (token : string = "") => ({
   jsonApplication: {
     "Content-Type": "application/json",
-    "Authorization": `Bearer ${accessToken}`
+    "Authorization": `Bearer ${token}`
   },
   multiplePathFile: {
     "Content-Type": "multipart/form-data",
-    "Authorization": `Bearer ${accessToken}`
+    "Authorization": `Bearer ${token}`
   },
+  default:{
+    "Content-Type": "application/json",
+  }
 });

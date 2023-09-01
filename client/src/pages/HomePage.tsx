@@ -15,11 +15,11 @@ const HomePage = () => {
   const { state, dispatch } = useDashboardContext();
   const [date, setDate] = useState<dateOptionType>({ option: "", year: "" });
   useEffect(() => {
-    getYear(dispatch, tokenState.accessToken);
-    getTotal(dispatch, tokenState.accessToken);
+    getYear(dispatch, tokenState.accessToken, tokenState.refreshToken);
+    getTotal(dispatch, tokenState.accessToken, tokenState.refreshToken);
   }, []);
   useEffect(() => {
-    getDashBoard(date.year, date.option, dispatch, tokenState.accessToken);
+    getDashBoard(date.year, date.option, dispatch, tokenState.accessToken, tokenState.refreshToken);
   }, [date]);
   const handleChangeYear = (value: string) => {
     setDate((preDate) => ({
