@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.storage.ecchi.entity.Sauce;
 import com.example.storage.ecchi.entity.SauceHistory;
 import com.example.storage.ecchi.entity.SauceType;
+import com.example.storage.ecchi.entity.User;
 import com.example.storage.ecchi.model.SauceModel;
 import com.example.storage.ecchi.repository.SauceHistoryRepository;
 import com.example.storage.ecchi.repository.SauceRepository;
@@ -51,7 +53,8 @@ public class SauceServiceImp implements SauceService {
 	@Override
 	public Page<SauceModel> getSauce(Integer page, String sauceTypeId, Integer month, Integer year) {
 		Pageable pageable = PageRequest.of(page, 12);
-		return sauceRepository.getAllSauce(pageable, sauceTypeId, month, year).map(sauce -> transformer.apply(sauce));
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return sauceRepository.getAllSauce(pageable, sauceTypeId, month, year, user.getId()).map(sauce -> transformer.apply(sauce));
 	}
 
 	@Override

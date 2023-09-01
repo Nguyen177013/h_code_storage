@@ -61,5 +61,4 @@ public class SauceController {
 	public List<SauceModel> handleFileUpload(@RequestParam("files") MultipartFile[] files) {
 		return sauceService.uploadImage(files);
 	}
-
 }
