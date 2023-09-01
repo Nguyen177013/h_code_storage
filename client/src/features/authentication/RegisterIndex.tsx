@@ -1,14 +1,14 @@
 import { useState } from "react";
 import useAuthContext from "../../hooks/useAuth";
-import { login } from "../../context/auth_context/actions";
-import { useNavigate  } from "react-router";
-
-const LoginPage = () => {
+import { register } from "../../context/auth_context/actions";
+import { useNavigate } from "react-router";
+const RegisterPage = () => {
   const navigate = useNavigate();
   const { dispatch } = useAuthContext();
-  const [form, setInput] = useState<LoginType>({
+  const [form, setInput] = useState<RegisterType>({
     password: "",
     userName: "",
+    email: "",
   });
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
@@ -20,11 +20,11 @@ const LoginPage = () => {
   }
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await login(dispatch, form);
+    await register(dispatch, form);
   }
   return (
     <>
-      <h1>Login page</h1>
+      <h1>Register page</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -38,18 +38,24 @@ const LoginPage = () => {
           name="password"
           onChange={handleChange}
         />
-        <button>login</button>
+        <input
+          type="text"
+          placeholder="email..."
+          name="email"
+          onChange={handleChange}
+        />
+        <button>register</button>
       </form>
       <p
         style={{ color: "#4285f4", cursor: "pointer" }}
         onClick={() => {
-          navigate("/register");
+          navigate("/login");
         }}
       >
-        register if don't have account
+        login if have account
       </p>
     </>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

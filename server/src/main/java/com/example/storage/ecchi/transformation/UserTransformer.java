@@ -21,6 +21,7 @@ public class UserTransformer {
 	public User modelToEntity(UserModel usermodel) {
 		User user = new User();
 		user.setUserName(usermodel.getUserName());
+		user.setUserEmail(usermodel.getEmail());
 		user.setUserPassword(usermodel.getPassword());
 		return user;
 	}

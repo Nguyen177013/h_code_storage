@@ -40,7 +40,7 @@ public class UserServiceImp implements UserService {
 	@Override
 	public AuthResponse userLogin(UserModel user) {
 		AuthResponse authResponse = new AuthResponse();
-		User userLogin = userRepositiory.findUser(user.getUserName());
+		User userLogin = userRepositiory.findUserName(user.getUserName());
 		boolean checkUserPassword = passwordEncoder.matches(user.getPassword(), userLogin.getUserPassword());
 		if (checkUserPassword) {
 			String accessToken = jwtUtils.generateToken(userLogin, accessTokenCode);
@@ -60,7 +60,7 @@ public class UserServiceImp implements UserService {
 		String encriptPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encriptPassword);
 		User newUser = userTransformer.modelToEntity(user);
-		if (Objects.isNull(userRepositiory.findUser(newUser.getUserName()))) {
+		if (Objects.isNull(userRepositiory.findUser(newUser.getUserName(), newUser.getUserEmail()))) {
 			newUser = userRepositiory.save(newUser);
 			String accessToken = jwtUtils.generateToken(newUser, accessTokenCode);
 			String refreshToken = jwtUtils.generateToken(newUser, refreshTokenCode);

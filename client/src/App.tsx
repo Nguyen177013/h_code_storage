@@ -6,6 +6,7 @@ import ImagePage from "./features/Images/ImagePage";
 import NukeCodePage from "./features/SourceCode/NukeCodePage";
 import LoginPage from "./features/authentication/LoginIndex";
 import useAuthContext from "./hooks/useAuth";
+import RegisterPage from "./features/authentication/RegisterIndex";
 function App() {
   const {state} = useAuthContext();
   const token = state.accessToken;
@@ -23,6 +24,10 @@ function App() {
         <Route
           path="login"
           element={token ? <Navigate to={"/"} /> : <LoginPage />}
+        />
+        <Route
+          path="register"
+          element={token ? <Navigate to={"/"} /> : <RegisterPage />}
         />
       </Routes>
     </BrowserRouter>
